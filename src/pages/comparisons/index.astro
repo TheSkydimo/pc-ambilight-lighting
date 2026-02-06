@@ -11,7 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const intro = "A vs B, but for real: scenario-based verdicts and migration costs.";
+const title = "PC RGB Software Comparisons — OpenRGB vs SignalRGB & More";
+const intro =
+  "Scenario-based verdicts, what breaks in real setups, and migration costs (accounts, telemetry, drivers, device support).";
 
 const entries = await getCollection("comparisons", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -43,11 +45,11 @@ const items = entries
 <BaseLayout
   locale={locale}
   pathname={pathname}
-  title={copy.nav.comparisons}
+  title={title}
   description={intro}
 >
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.comparisons}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>

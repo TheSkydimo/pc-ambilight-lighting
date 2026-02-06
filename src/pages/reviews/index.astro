@@ -13,8 +13,9 @@ const { copy } = pageData;
 
 const entries = await getCollection("reviews", (e) => e.slug.startsWith(`${locale}/`));
 
+const title = "PC Ambilight Software Reviews — Skydimo, SignalRGB, OpenRGB";
 const intro =
-  "Deep reviews focused on fit, limits, stability, performance, and privacy.";
+  "Hands-on reviews focused on stability, performance, privacy, and real-world setup pain (sleep/wake, conflicts, and device dropouts).";
 
 const priority = (slug: string): number =>
   slug.toLowerCase().includes("skydimo") ? 0 : 1;
@@ -42,11 +43,11 @@ const items = entries
 <BaseLayout
   locale={locale}
   pathname={pathname}
-  title={copy.nav.reviews}
+  title={title}
   description={intro}
 >
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.reviews}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>

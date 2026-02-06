@@ -15,6 +15,20 @@ const storageKey = "preferredLocale";
   (function () {
     const supportedLocaleSet = new Set(supportedLocales);
 
+    const hasNoRedirectFlag = () => {
+      try {
+        return new URLSearchParams(window.location.search).has("no-redirect");
+      } catch {
+        return false;
+      }
+    };
+
+    // Avoid client-side redirects for crawlers to keep indexing stable.
+    const isLikelyBot = () => {
+      const ua = (window.navigator.userAgent ?? "").toLowerCase();
+      return /(bot|crawler|spider|slurp|bingpreview|duckduckbot|googlebot|yandex|baiduspider)/.test(ua);
+    };
+
     const normalizePath = (path) =>
       path.endsWith("/") ? path : `${path}/`;
 
@@ -71,6 +85,10 @@ const storageKey = "preferredLocale";
       }
     };
 
+    if (hasNoRedirectFlag() || isLikelyBot()) {
+      return;
+    }
+
     const storedLocale = readStoredLocale();
     if (storedLocale) {
       if (storedLocale !== locale) {
@@ -100,7 +118,8 @@ const storageKey = "preferredLocale";
 
     writeStoredLocale(detectedLocale);
 
-    if (detectedLocale !== locale) {
+    // Only auto-redirect on the homepage for first-time visitors.
+    if (detectedLocale !== locale && normalizePath(window.location.pathname) === "/") {
       redirectToLocale(detectedLocale);
     }
   })();

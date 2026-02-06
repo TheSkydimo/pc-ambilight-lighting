@@ -5,13 +5,17 @@ import { localizePathname } from "~/i18n/config";
 
 const locale = DEFAULT_LOCALE;
 const pathname = "/compatibility/not-detected/";
+
+const title = "PC RGB Not Detected Fix — USB, Drivers, Conflicts";
+const description =
+  "Quick troubleshooting when your RGB device isn’t detected: symptoms → likely causes → steps → verification (USB, drivers, permissions, sleep/wake, and conflicts).";
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="Not detected troubleshooting">
+<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">Not detected</h1>
     <p class="max-w-3xl text-sm text-offset">
-      Symptom → likely causes → steps → verification. This page is intentionally structured so it can evolve into a decision tree.
+      {description} This page is intentionally structured so it can evolve into a decision tree.
     </p>
   </header>
 

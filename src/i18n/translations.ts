@@ -64,12 +64,12 @@ const translations: Record<Locale, TranslationContent> = {
   en: {
     siteName: "PC Ambilight Lighting",
     meta: {
-      title: "PC Ambilight Lighting — Best Picks, Reviews, Guides & Compatibility",
+      title: "Best PC Ambilight Software (2026) — Picks, Reviews & Compatibility",
       description:
-        "A high-trust Ambilight / screen-sync RGB knowledge base: best picks, deep reviews, comparisons, guides, and a compatibility hub. Low-drama recommendations with reproducible methods.",
-      ogTitle: "PC Ambilight Lighting",
+        "Find the best PC Ambilight / screen-sync RGB software for your setup. Evidence-first picks, OpenRGB vs SignalRGB comparisons, deep reviews, and a compatibility hub (plus fast troubleshooting).",
+      ogTitle: "Best PC Ambilight Software (2026)",
       ogDescription:
-        "Best Ambilight / screen-sync RGB software and setup guides, with transparent methods and compatibility notes.",
+        "Evidence-first picks, reviews, comparisons, and a compatibility hub for PC Ambilight / screen-sync RGB setups.",
     },
     nav: {
       bestPicks: "Best Picks",
@@ -88,23 +88,23 @@ const translations: Record<Locale, TranslationContent> = {
       dark: "Use dark theme",
     },
     home: {
-      h1: "Ambilight / Screen-Sync RGB — picked with evidence",
+      h1: "Best PC Ambilight & Screen-Sync RGB software — picked with evidence",
       valueProp:
-        "Stable, low-latency screen-sync lighting without vendor lock-in. Clear recommendations, reproducible testing, and honest limits.",
+        "Cut through the noise: stable, low-latency screen sync lighting with fewer driver conflicts. Quick “best for most” picks, deep reviews, and compatibility notes across Skydimo, SignalRGB, OpenRGB, and vendor suites.",
       topPicksTitle: "Top picks (quick answers)",
       topPicksLead:
         "Start here if you just want the best option for your situation — with the “why” and the trade-offs.",
       sectionsTitle: "Explore by task",
-      trustTitle: "How we keep it trustworthy",
+      trustTitle: "Why you can trust these picks",
       trustBullets: [
-        "Same evaluation dimensions across all best-picks pages",
-        "Test environments and “last tested” dates are shown",
+        "Same rubric across pages (stability, latency, compatibility, privacy, cost)",
+        "Test dates are shown so you can judge freshness",
         "Clear disclosure when there’s any relationship or affiliate link",
       ],
     },
     footer: {
       title: "PC Ambilight Lighting",
-      lead: "Content-first, evidence-first. No gimmicks.",
+      lead: "Evidence-first picks for PC Ambilight and screen-sync RGB.",
       sections: {
         bestPicks: "Best Picks",
         reviews: "Reviews",

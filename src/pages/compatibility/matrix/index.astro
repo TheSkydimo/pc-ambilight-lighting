@@ -4,6 +4,9 @@ import { DEFAULT_LOCALE } from "~/i18n/config";
 
 const locale = DEFAULT_LOCALE;
 const pathname = "/compatibility/matrix/";
+const title = "PC RGB Compatibility Matrix — OpenRGB, SignalRGB, Skydimo";
+const description =
+  "Quick compatibility reference for PC RGB software and devices. Organized by software × device type × connection, with evidence notes.";
 
 type SupportStatus = "supported" | "partial" | "not_supported" | "unknown";
 
@@ -39,11 +42,11 @@ const rows: Array<{
 ];
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="Compatibility matrix">
+<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">Compatibility matrix</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
-      Filterable compatibility data, organized by software × device type × connection. Evidence and last-tested dates should always be linked from related reviews/guides.
+      {description} Evidence and “last tested” dates should be linked from related reviews/guides.
     </p>
   </header>
 

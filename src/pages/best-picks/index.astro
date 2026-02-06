@@ -6,12 +6,14 @@ import { buildPageData } from "~/i18n/page-data";
 import { localizePathname } from "~/i18n/config";
 
 const locale = DEFAULT_LOCALE;
+const pathname = "/best-picks/";
 const { site } = Astro;
-const pageData = buildPageData(locale, site, "/best-picks/");
+const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
+const title = "Best PC Ambilight Software Picks (2026) — By Scenario";
 const intro =
-  "Direct answers first: top picks by scenario, with consistent evaluation dimensions.";
+  "Quick picks for PC Ambilight / screen-sync RGB setups—based on stability, latency, compatibility, privacy, and cost.";
 
 const entries = await getCollection("bestPicks", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -32,12 +34,12 @@ const items = entries
 
 <BaseLayout
   locale={locale}
-  pathname="/best-picks/"
-  title={copy.nav.bestPicks}
+  pathname={pathname}
+  title={title}
   description={intro}
 >
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.bestPicks}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>

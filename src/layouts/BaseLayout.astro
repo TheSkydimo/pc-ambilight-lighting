@@ -17,9 +17,11 @@ export interface Props {
   pathname: string;
   title?: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
 }
 
-const { locale, pathname, title, description } = Astro.props;
+const { locale, pathname, title, description, ogTitle, ogDescription } = Astro.props;
 const { generator, site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy, languageOptions, head } = pageData;
@@ -62,6 +64,57 @@ const footerLinks = [
 
 const metaTitle = title ?? copy.meta.title;
 const metaDescription = description ?? copy.meta.description;
+const metaOgTitle = ogTitle ?? title ?? copy.meta.ogTitle ?? metaTitle;
+const metaOgDescription = ogDescription ?? description ?? copy.meta.ogDescription ?? metaDescription;
+const metaOgType = normalizedPathname === "/" ? "website" : "article";
+
+const buildBreadcrumbs = (): Array<{ name: string; href: string }> => {
+  const homeHref = buildAbsoluteUrl(localizePathname(locale, "/"), site);
+  const currentHref = head.canonical;
+
+  const section = normalizedPathname.split("/").filter(Boolean)[0] ?? "";
+  const sectionLabelMap: Record<string, string> = {
+    "best-picks": copy.nav.bestPicks,
+    "best-ambilight-software": copy.nav.bestPicks,
+    "best-screen-sync-rgb-software": copy.nav.bestPicks,
+    "best-free-ambilight-software": copy.nav.bestPicks,
+    "best-for-mixed-brands": copy.nav.bestPicks,
+    reviews: copy.nav.reviews,
+    comparisons: copy.nav.comparisons,
+    compare: copy.nav.comparisons,
+    guides: copy.nav.guides,
+    compatibility: copy.nav.compatibility,
+    faq: copy.nav.faq,
+  };
+
+  const sectionLabel = sectionLabelMap[section];
+  const sectionHref =
+    sectionLabel && section
+      ? buildAbsoluteUrl(localizePathname(locale, `/${section === "compare" ? "comparisons" : section}/`), site)
+      : undefined;
+
+  if (!sectionLabel || !sectionHref || normalizedPathname === "/") {
+    return [
+      { name: copy.siteName, href: homeHref },
+      { name: metaTitle, href: currentHref },
+    ];
+  }
+
+  // Avoid repeating the same title as the section name on section hubs (e.g. /reviews/)
+  const isSectionHub = normalizePathname(`/${section === "compare" ? "comparisons" : section}/`) === normalizedPathname;
+  return isSectionHub
+    ? [
+        { name: copy.siteName, href: homeHref },
+        { name: sectionLabel, href: currentHref },
+      ]
+    : [
+        { name: copy.siteName, href: homeHref },
+        { name: sectionLabel, href: sectionHref },
+        { name: metaTitle, href: currentHref },
+      ];
+};
+
+const breadcrumbs = buildBreadcrumbs();
 
 const structuredData = [
   {
@@ -82,6 +135,17 @@ const structuredData = [
     inLanguage: htmlLang,
     isPartOf: { "@id": buildAbsoluteUrl("/#website", site) },
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${head.canonical}#breadcrumb`,
+    itemListElement: breadcrumbs.map((b, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: b.name,
+      item: b.href,
+    })),
+  },
 ];
 ---
 
@@ -98,15 +162,24 @@ const structuredData = [
     <title>{metaTitle}</title>
     <meta name="description" content={metaDescription} />
 
-    <meta property="og:title" content={metaTitle} />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content={metaDescription} />
+    <meta property="og:title" content={metaOgTitle} />
+    <meta property="og:type" content={metaOgType} />
+    <meta property="og:description" content={metaOgDescription} />
     <meta property="og:site_name" content={copy.siteName} />
+    <meta property="og:locale" content={htmlLang} />
+    {head.alternates
+      .filter((alt) => alt.code !== locale)
+      .map((alt) => (
+        <meta
+          property="og:locale:alternate"
+          content={hreflangMap[alt.code] ?? alt.code}
+        />
+      ))}
     <meta property="og:image" content={head.image} />
     <meta property="og:url" content={head.canonical} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={metaTitle} />
-    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:title" content={metaOgTitle} />
+    <meta name="twitter:description" content={metaOgDescription} />
     <meta name="twitter:image" content={head.image} />
 
     <link rel="canonical" href={head.canonical} />
