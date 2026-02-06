@@ -1,7 +1,9 @@
 # Schema hint (kept as a comment because Wrangler's TOML parser rejects `$` keys)
 # $schema = "./node_modules/wrangler/config-schema.json"
 name = "pc-ambilight-lighting"
-pages_build_output_dir = "./dist"
+
+# Workers Static Assets (deploy with `wrangler deploy` after `npm run build`)
+assets = { directory = "./dist" }
 
 # Pick an explicit compatibility date (required when using a Wrangler config file
 # as the source-of-truth for Pages). Keep this updated intentionally.

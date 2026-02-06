@@ -108,19 +108,21 @@ npm run build
 
 Deploy the generated `dist/` to any static host.
 
-### Cloudflare Pages (Wrangler)
+### Cloudflare Workers (Static Assets)
 
-If you deploy with Wrangler, use the **Pages** command (not `wrangler deploy`, which is Workers-only):
+This repo is configured to deploy the built `dist/` folder as **Workers Static Assets** (so `wrangler deploy` is correct):
 
 ```powershell
 npm run build
 npm run deploy
 ```
 
-Equivalent:
+### Cloudflare Pages (alternative)
+
+If you prefer Pages, you can deploy the same `dist/` output with:
 
 ```powershell
-npx wrangler pages deploy ./dist
+npm run deploy:pages
 ```
 
 Notes:
