@@ -1,0 +1,35 @@
+---
+export interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+export interface Props {
+  title: string;
+  headings: TocHeading[];
+  maxDepth?: number;
+}
+
+const { title, headings, maxDepth = 3 } = Astro.props;
+
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= maxDepth);
+---
+
+{items.length > 0 && (
+  <nav class="sticky top-28 hidden max-h-[calc(100vh-8rem)] overflow-auto lg:block">
+    <div class="text-xs font-semibold uppercase tracking-wide text-white/70">
+      {title}
+    </div>
+    <ul class="mt-3 space-y-2 text-sm text-offset">
+      {items.map((h) => (
+        <li class:list={[h.depth === 3 ? "pl-4 text-xs" : ""]}>
+          <a class="hover:text-secondary" href={`#${h.slug}`}>
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+

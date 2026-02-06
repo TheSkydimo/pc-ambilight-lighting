@@ -1,0 +1,33 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+const locale: Locale = "zh";
+const pathname = "/compatibility/";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="兼容性中心">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">兼容性中心</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      用结构化数据减少重复答疑：兼容矩阵、证据链接、按症状排错。
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    <a class="rounded-2xl border border-default bg-offset p-6 hover:border-white/30" href={localizePathname(locale, "/compatibility/matrix/")}>
+      <div class="text-sm font-semibold">兼容矩阵</div>
+      <p class="mt-2 text-sm text-offset">
+        按软件 × 设备类型 × 品牌 × 连接方式筛选。
+      </p>
+    </a>
+    <a class="rounded-2xl border border-default bg-offset p-6 hover:border-white/30" href={localizePathname(locale, "/compatibility/not-detected/")}>
+      <div class="text-sm font-semibold">不识别排错</div>
+      <p class="mt-2 text-sm text-offset">
+        症状 → 原因 → 步骤 → 验证 的决策树。
+      </p>
+    </a>
+  </div>
+</BaseLayout>
+

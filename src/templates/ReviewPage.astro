@@ -1,0 +1,49 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ContentPageLayout from "~/templates/ContentPageLayout.astro";
+import ProsCons from "~/components/content/ProsCons.astro";
+import type { Locale } from "~/i18n/config";
+
+export interface Props {
+  locale: Locale;
+  pathname: string;
+  entry: CollectionEntry<"reviews">;
+  labels: {
+    tldr: string;
+    updated: string;
+    lastTested: string;
+    toc: string;
+    disclosureTitle: string;
+    pros: string;
+    cons: string;
+  };
+}
+
+const { locale, pathname, entry, labels } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<ContentPageLayout
+  locale={locale}
+  pathname={pathname}
+  title={entry.data.title}
+  description={entry.data.description}
+  headings={headings}
+  updatedAt={entry.data.updatedAt}
+  lastTestedAt={entry.data.lastTestedAt}
+  tldrLabel={labels.tldr}
+  tldr={entry.data.tldr}
+  disclosureTitle={labels.disclosureTitle}
+  disclosure={entry.data.disclosure}
+  metaLabels={{ updated: labels.updated, lastTested: labels.lastTested }}
+  tocTitle={labels.toc}
+>
+  <ProsCons
+    pros={entry.data.pros}
+    cons={entry.data.cons}
+    labelPros={labels.pros}
+    labelCons={labels.cons}
+  />
+  <Content />
+</ContentPageLayout>
+

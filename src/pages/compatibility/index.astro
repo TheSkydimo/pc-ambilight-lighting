@@ -1,0 +1,33 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+const locale = DEFAULT_LOCALE;
+const pathname = "/compatibility/";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="Compatibility Hub">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">Compatibility Hub</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      A structured hub to reduce repeated troubleshooting: matrix, evidence links, and symptom-based fixes.
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    <a class="rounded-2xl border border-default bg-offset p-6 hover:border-white/30" href={localizePathname(locale, "/compatibility/matrix/")}>
+      <div class="text-sm font-semibold">Compatibility matrix</div>
+      <p class="mt-2 text-sm text-offset">
+        Filter by software × device type × brand × connection method.
+      </p>
+    </a>
+    <a class="rounded-2xl border border-default bg-offset p-6 hover:border-white/30" href={localizePathname(locale, "/compatibility/not-detected/")}>
+      <div class="text-sm font-semibold">Not detected</div>
+      <p class="mt-2 text-sm text-offset">
+        Decision tree: symptom → cause → steps → verification.
+      </p>
+    </a>
+  </div>
+</BaseLayout>
+

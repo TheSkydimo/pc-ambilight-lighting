@@ -1,0 +1,77 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Locale } from "~/i18n/config";
+
+const locale: Locale = "zh";
+const pathname = "/compatibility/matrix/";
+
+type SupportStatus = "supported" | "partial" | "not_supported" | "unknown";
+
+const statusLabel: Record<SupportStatus, string> = {
+  supported: "支持",
+  partial: "部分支持",
+  not_supported: "不支持",
+  unknown: "未知",
+};
+
+const rows: Array<{
+  software: string;
+  deviceType: string;
+  connection: string;
+  status: SupportStatus;
+  evidence?: string;
+}> = [
+  {
+    software: "Skydimo",
+    deviceType: "ARGB 控制器",
+    connection: "USB",
+    status: "unknown",
+    evidence: "后续会在评测/教程发布后补齐证据链接。",
+  },
+  {
+    software: "OpenRGB",
+    deviceType: "主板 ARGB",
+    connection: "主板灯效接口",
+    status: "unknown",
+  },
+];
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="兼容矩阵">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">兼容矩阵</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      按软件 × 设备类型 × 连接方式组织兼容数据；每条记录尽量关联证据（对应评测/教程）与测试日期。
+    </p>
+  </header>
+
+  <div class="mt-8 overflow-auto rounded-2xl border border-default">
+    <table class="min-w-[52rem] w-full border-collapse text-left text-sm">
+      <thead class="bg-black/30 text-xs uppercase tracking-wide text-white/70">
+        <tr>
+          <th class="p-4">软件</th>
+          <th class="p-4">设备类型</th>
+          <th class="p-4">连接方式</th>
+          <th class="p-4">状态</th>
+          <th class="p-4">证据</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr class="border-t border-default">
+            <td class="p-4 font-semibold">{row.software}</td>
+            <td class="p-4 text-offset">{row.deviceType}</td>
+            <td class="p-4 text-offset">{row.connection}</td>
+            <td class="p-4">
+              <span class="rounded-full border border-default bg-offset px-2 py-1 text-xs">
+                {statusLabel[row.status]}
+              </span>
+            </td>
+            <td class="p-4 text-offset">{row.evidence ?? "—"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>
+

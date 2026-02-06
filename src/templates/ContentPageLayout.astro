@@ -1,0 +1,70 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import ContentMeta from "~/components/content/ContentMeta.astro";
+import ContentToc, { type TocHeading } from "~/components/content/ContentToc.astro";
+import DisclosureBar from "~/components/content/DisclosureBar.astro";
+import TldrCard from "~/components/content/TldrCard.astro";
+import type { Locale } from "~/i18n/config";
+import "~/styles/content.css";
+
+export interface Props {
+  locale: Locale;
+  pathname: string;
+  title: string;
+  description: string;
+  headings: TocHeading[];
+  updatedAt?: Date;
+  lastTestedAt?: Date;
+  tldrLabel: string;
+  tldr?: string;
+  disclosureTitle: string;
+  disclosure?: string;
+  metaLabels: { updated: string; lastTested: string };
+  tocTitle: string;
+}
+
+const {
+  locale,
+  pathname,
+  title,
+  description,
+  headings,
+  updatedAt,
+  lastTestedAt,
+  tldrLabel,
+  tldr,
+  disclosureTitle,
+  disclosure,
+  metaLabels,
+  tocTitle,
+} = Astro.props;
+---
+
+<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <article>
+      <header class="space-y-4">
+        <h1 class="text-balance text-4xl font-semibold tracking-tight">
+          {title}
+        </h1>
+        <p class="max-w-3xl text-pretty text-lg text-offset">{description}</p>
+        <ContentMeta
+          updatedAt={updatedAt}
+          lastTestedAt={lastTestedAt}
+          labelUpdated={metaLabels.updated}
+          labelLastTested={metaLabels.lastTested}
+        />
+        {disclosure && <DisclosureBar title={disclosureTitle} text={disclosure} />}
+        {tldr && <TldrCard label={tldrLabel} text={tldr} />}
+      </header>
+      <div class="mt-10 content">
+        <slot />
+      </div>
+    </article>
+
+    <aside>
+      <ContentToc title={tocTitle} headings={headings} />
+    </aside>
+  </div>
+</BaseLayout>
+

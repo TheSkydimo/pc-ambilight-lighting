@@ -1,0 +1,74 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ContentPageLayout from "~/templates/ContentPageLayout.astro";
+import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+export interface Props {
+  locale: Locale;
+  pathname: string;
+  entry: CollectionEntry<"bestPicks">;
+  labels: {
+    tldr: string;
+    updated: string;
+    lastTested: string;
+    toc: string;
+    disclosureTitle: string;
+    readMore: string;
+    topPicksTitle: string;
+    bestFor: string;
+    pricing: string;
+  };
+}
+
+const { locale, pathname, entry, labels } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<ContentPageLayout
+  locale={locale}
+  pathname={pathname}
+  title={entry.data.title}
+  description={entry.data.description}
+  headings={headings}
+  updatedAt={entry.data.updatedAt}
+  lastTestedAt={entry.data.lastTestedAt}
+  tldrLabel={labels.tldr}
+  tldr={entry.data.tldr}
+  disclosureTitle={labels.disclosureTitle}
+  disclosure={entry.data.disclosure}
+  metaLabels={{ updated: labels.updated, lastTested: labels.lastTested }}
+  tocTitle={labels.toc}
+>
+  <section>
+    <h2>{labels.topPicksTitle}</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      {entry.data.picks.map((pick) => (
+        <div class="rounded-2xl border border-default bg-offset p-5">
+          <div class="text-sm font-semibold">{pick.name}</div>
+          <p class="mt-2 text-sm text-offset">{pick.verdict}</p>
+          <div class="mt-4 text-xs text-white/70">
+            <div>
+              <span class="font-semibold text-default">{labels.bestFor}:</span>{" "}
+              {pick.bestFor}
+            </div>
+            {pick.pricing && (
+              <div class="mt-1">
+                <span class="font-semibold text-default">{labels.pricing}:</span>{" "}
+                {pick.pricing}
+              </div>
+            )}
+            {pick.notes && <div class="mt-2 text-offset">{pick.notes}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="mt-5 text-sm text-offset">
+      Prefer a deeper breakdown? Browse{" "}
+      <a href={localizePathname(locale, "/reviews/")}>{labels.readMore}</a>.
+    </p>
+  </section>
+
+  <Content />
+</ContentPageLayout>
+

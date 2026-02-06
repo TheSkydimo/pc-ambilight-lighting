@@ -1,0 +1,72 @@
+---
+import { getCollection } from "astro:content";
+import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+export async function getStaticPaths() {
+  const locale: Locale = "zh";
+  const pathnames = new Set<string>();
+
+  // fixed pages that exist for zh
+  [
+    "/best-picks/",
+    "/reviews/",
+    "/guides/",
+    "/comparisons/",
+    "/compatibility/",
+    "/compatibility/matrix/",
+    "/compatibility/not-detected/",
+    "/faq/",
+    "/best-ambilight-software/",
+    "/best-screen-sync-rgb-software/",
+    "/best-free-ambilight-software/",
+    "/best-for-mixed-brands/",
+  ].forEach((p) => pathnames.add(p));
+
+  const addFromCollection = async (
+    collection: "reviews" | "guides" | "comparisons",
+    toPathname: (slug: string) => string,
+  ) => {
+    const entries = await getCollection(collection, (e) =>
+      e.slug.startsWith(`${locale}/`),
+    );
+    for (const e of entries) {
+      const slug = e.slug.split("/").slice(1).join("/");
+      if (!slug) continue;
+      pathnames.add(toPathname(slug));
+    }
+  };
+
+  await addFromCollection("reviews", (slug) => `/reviews/${slug}/`);
+  await addFromCollection("guides", (slug) => `/guides/${slug}/`);
+  await addFromCollection("comparisons", (slug) => `/compare/${slug}/`);
+
+  // generate only the ".md" variants, e.g. "/best-ambilight-software.md/"
+  const mdPaths = Array.from(pathnames).map((p) => {
+    const clean = p.endsWith("/") ? p.slice(0, -1) : p;
+    return `${clean}.md/`;
+  });
+
+  // Avoid conflicts with existing dynamic routes like /zh/reviews/[slug]
+  // which already accept ".md" as part of their slug.
+  const safeMdPaths = mdPaths.filter(
+    (p) =>
+      !p.startsWith("/reviews/") &&
+      !p.startsWith("/guides/") &&
+      !p.startsWith("/compare/"),
+  );
+
+  return safeMdPaths.map((pathname) => ({
+    params: { path: pathname.split("/").filter(Boolean).join("/") },
+  }));
+}
+
+const locale: Locale = "zh";
+const incoming = `/${Astro.params.path ?? ""}`; // no trailing slash guaranteed
+
+// /zh/<something>.md -> /zh/<something>
+const stripped = incoming.replace(/\.md\/?$/, "/");
+const target = localizePathname(locale, stripped);
+
+return Astro.redirect(target);
+---

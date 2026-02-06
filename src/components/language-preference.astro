@@ -1,0 +1,107 @@
+---
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from "~/i18n/config";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const supportedLocales = Array.from(SUPPORTED_LOCALES);
+const defaultLocale = DEFAULT_LOCALE;
+const storageKey = "preferredLocale";
+---
+
+<script define:vars={{ storageKey, supportedLocales, defaultLocale, locale }}>
+  (function () {
+    const supportedLocaleSet = new Set(supportedLocales);
+
+    const normalizePath = (path) =>
+      path.endsWith("/") ? path : `${path}/`;
+
+    const extractLocaleFromPath = (path) => {
+      const normalized = normalizePath(path);
+      const maybeLocale = normalized.split("/")[1];
+      return supportedLocaleSet.has(maybeLocale) ? maybeLocale : undefined;
+    };
+
+    const stripLocaleFromPath = (path) => {
+      const normalized = normalizePath(path);
+      const current = extractLocaleFromPath(normalized);
+      if (!current) return normalized;
+      return `/${normalized.split("/").slice(2).join("/")}`;
+    };
+
+    const buildLocalizedPath = (targetLocale, pathWithoutLocale) => {
+      const base = normalizePath(pathWithoutLocale);
+      return targetLocale === defaultLocale ? base : normalizePath(`/${targetLocale}${base}`);
+    };
+
+    const safeNormalizeLocale = (value) => {
+      if (typeof value !== "string") return undefined;
+      const normalized = value.toLowerCase().split("-")[0];
+      return supportedLocaleSet.has(normalized) ? normalized : undefined;
+    };
+
+    const readStoredLocale = () => {
+      try {
+        return safeNormalizeLocale(
+          window.localStorage.getItem(storageKey) ?? undefined,
+        );
+      } catch {
+        return undefined;
+      }
+    };
+
+    const writeStoredLocale = (value) => {
+      if (!value) return;
+      try {
+        window.localStorage.setItem(storageKey, value);
+      } catch {
+        /* storage might be unavailable (private mode, etc.) */
+      }
+    };
+
+    const redirectToLocale = (target) => {
+      const basePath = stripLocaleFromPath(window.location.pathname);
+      const targetPath = buildLocalizedPath(target, basePath);
+      const normalizedTarget = normalizePath(targetPath);
+      const normalizedCurrent = normalizePath(window.location.pathname);
+      if (normalizedTarget !== normalizedCurrent) {
+        window.location.replace(targetPath);
+      }
+    };
+
+    const storedLocale = readStoredLocale();
+    if (storedLocale) {
+      if (storedLocale !== locale) {
+        // Only auto-redirect from default locale pages.
+        if (locale === defaultLocale) {
+          redirectToLocale(storedLocale);
+          return;
+        }
+        writeStoredLocale(locale);
+      }
+      return;
+    }
+
+    if (locale !== defaultLocale) {
+      writeStoredLocale(locale);
+      return;
+    }
+
+    const navigatorLocales = Array.isArray(window.navigator.languages)
+      ? window.navigator.languages
+      : [window.navigator.language];
+
+    const detectedLocale =
+      navigatorLocales
+        .map((lang) => safeNormalizeLocale(lang))
+        .find(Boolean) ?? defaultLocale;
+
+    writeStoredLocale(detectedLocale);
+
+    if (detectedLocale !== locale) {
+      redirectToLocale(detectedLocale);
+    }
+  })();
+</script>

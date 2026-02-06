@@ -1,0 +1,48 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+const locale: Locale = "zh";
+const pathname = "/compatibility/not-detected/";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="不识别排错">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">不识别排错</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      症状 → 可能原因 → 操作步骤 → 验证方式。本页按“决策树”结构组织，便于后续扩展。
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4">
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">1）先确认基础项</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>换 USB 口（优先主板后置），尽量避免不稳定 Hub。</li>
+        <li>换数据线；部分“仅充电线”不传数据。</li>
+        <li>安装驱动/服务后重启一次，避免系统保留旧状态。</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">2）驱动与权限</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>设备管理器中检查未知设备/被禁用设备。</li>
+        <li>必要时管理员运行（部分设备访问需要更高权限）。</li>
+        <li>注意厂商套件可能安装冲突驱动/后台服务。</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">3）睡眠/唤醒相关</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>若睡眠后失效，尝试关闭 USB 选择性暂停。</li>
+        <li>相关 USB 设备属性中取消“允许计算机关闭此设备以节约电源”。</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="mt-10 text-sm text-offset">
+    相关内容：<a href={localizePathname(locale, "/guides/")}>教程知识库</a>
+  </div>
+</BaseLayout>
+

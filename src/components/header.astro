@@ -1,0 +1,199 @@
+---
+import { Icon } from "astro-icon/components";
+import LanguageSwitcher from "~/components/language-switcher.astro";
+import ThemeSwitcher from "~/components/theme-switcher.astro";
+import type { LanguageLink, Locale } from "~/i18n/config";
+import type { NavItem } from "~/types";
+
+export interface Props {
+  homeHref: string;
+  siteName: string;
+  navItems: Array<NavItem>;
+  locale: Locale;
+  navLabel: string;
+  openLabel: string;
+  closeLabel: string;
+  languageLabel: string;
+  languageOptions: LanguageLink[];
+  themeLabels: {
+    light: string;
+    dark: string;
+  };
+}
+
+const {
+  homeHref,
+  siteName,
+  navItems,
+  locale,
+  navLabel,
+  openLabel,
+  closeLabel,
+  languageLabel,
+  languageOptions,
+  themeLabels,
+} = Astro.props;
+---
+
+<header id="page-header" class="page-header">
+  <a class="flex items-center gap-3 hover:!text-white" href={homeHref}>
+    <h1 class="sr-only">{siteName}</h1>
+    <img
+      src="/svg/og-image.png"
+      alt=""
+      class="size-16 object-contain"
+      width="64"
+      height="64"
+      decoding="async"
+    />
+  </a>
+  <div>
+    <div class="flex items-center gap-6">
+      <nav class="hidden sm:block" aria-label={navLabel}>
+        <ul class="flex items-center gap-6">
+          {
+            navItems.map(({ title, url }) => (
+              <li>
+                <a class="text-sm" href={url}>
+                  {title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <LanguageSwitcher
+        label={languageLabel}
+        currentLocale={locale}
+        options={languageOptions}
+      />
+      <button
+        id="open-nav-button"
+        type="button"
+        class="btn sm:hidden"
+        aria-label={openLabel}
+      >
+        <Icon name="mdi:menu" class="size-8" />
+      </button>
+      <ThemeSwitcher
+        labelLight={themeLabels.light}
+        labelDark={themeLabels.dark}
+      />
+    </div>
+    <div id="menu-modal" class="modal hidden" aria-hidden="true">
+      <div class="fixed inset-0 bg-default px-8 py-4 text-default">
+        <div class="space-y-4" role="dialog" aria-modal="true">
+          <header class="text-right">
+            <button
+              id="close-nav-button"
+              type="button"
+              class="btn"
+              aria-label={closeLabel}
+            >
+              <Icon name="mdi:close" class="size-8" />
+            </button>
+          </header>
+          <div class="flex justify-center">
+            <img
+              src="/svg/og-image.png"
+              alt=""
+              class="size-16 object-contain"
+              width="64"
+              height="64"
+              decoding="async"
+            />
+          </div>
+          <div class="flex justify-center">
+            <LanguageSwitcher
+              label={languageLabel}
+              currentLocale={locale}
+              options={languageOptions}
+            />
+          </div>
+          <nav aria-label={navLabel}>
+            <ul class="flex flex-col">
+              {
+                navItems.map(({ title, url }) => (
+                  <li>
+                    <a class="block py-4 text-center text-xl" href={url}>
+                      {title}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import MicroModal from "micromodal";
+  import invariant from "tiny-invariant";
+
+  const menuModalId = "menu-modal";
+
+  const header = document.querySelector("#page-header") as HTMLElement;
+  const menu = document.querySelector(`#${menuModalId} ul`);
+  const openNavButton = document.querySelector("#open-nav-button");
+  const closeNavButton = document.querySelector("#close-nav-button");
+
+  invariant(header, "header should not be null");
+  invariant(menu, "menu should not be null");
+  invariant(openNavButton, "openNavButton should not be null");
+  invariant(closeNavButton, "closeNavButton should not be null");
+
+  const openMenu = () => {
+    MicroModal.show(menuModalId, { disableScroll: true });
+  };
+
+  const closeMenu = () => {
+    MicroModal.close(menuModalId);
+  };
+
+  const updateHeaderState = () => {
+    const scrolled = window.scrollY > 0;
+    header.classList.toggle("header--scrolled", scrolled);
+  };
+
+  updateHeaderState();
+
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+openNavButton.addEventListener("click", openMenu);
+closeNavButton.addEventListener("click", closeMenu);
+
+  menu.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).tagName === "A") {
+      closeMenu();
+    }
+  });
+</script>
+
+<noscript>
+  <style>
+    #open-nav-button {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<style>
+  .page-header {
+    @apply fixed inset-x-0 top-0 z-20 flex w-full items-center justify-between border-b border-transparent bg-transparent px-8 py-4 text-white transition-colors;
+  }
+  .header--scrolled {
+    @apply border-default backdrop-blur;
+    background-color: var(--color-background);
+    background-color: color-mix(
+      in srgb,
+      var(--color-background) 90%,
+      transparent
+    );
+  }
+  .modal.is-open {
+    @apply block;
+  }
+</style>

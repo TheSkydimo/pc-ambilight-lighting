@@ -1,0 +1,36 @@
+---
+import { getEntry } from "astro:content";
+import invariant from "tiny-invariant";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
+import BestPicksPage from "~/templates/BestPicksPage.astro";
+
+const locale = DEFAULT_LOCALE;
+const pathname = "/best-screen-sync-rgb-software/";
+const slug = "best-screen-sync-rgb-software";
+
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { copy } = pageData;
+
+const entry = await getEntry("bestPicks", `${locale}/${slug}`);
+invariant(entry, `Missing bestPicks entry for ${locale}/${slug}`);
+---
+
+<BestPicksPage
+  locale={locale}
+  pathname={pathname}
+  entry={entry}
+  labels={{
+    tldr: copy.common.tldr,
+    updated: copy.common.updated,
+    lastTested: copy.common.lastTested,
+    toc: "On this page",
+    disclosureTitle: copy.footer.legal.disclosureTitle,
+    readMore: copy.nav.reviews,
+    topPicksTitle: "Top picks",
+    bestFor: "Best for",
+    pricing: "Pricing",
+  }}
+/>
+

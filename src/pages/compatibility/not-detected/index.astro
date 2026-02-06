@@ -1,0 +1,48 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+
+const locale = DEFAULT_LOCALE;
+const pathname = "/compatibility/not-detected/";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="Not detected troubleshooting">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">Not detected</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      Symptom → likely causes → steps → verification. This page is intentionally structured so it can evolve into a decision tree.
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4">
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">1) Confirm the basics</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>Try a different USB port (prefer rear I/O), avoid flaky hubs.</li>
+        <li>Swap cables; some “charge-only” cables won’t carry data.</li>
+        <li>Reboot after driver installs; Windows can keep stale device state.</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">2) Driver & permissions</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>Check Device Manager for unknown devices / disabled devices.</li>
+        <li>Run the app as admin if the device requires elevated access.</li>
+        <li>Watch out for vendor RGB suites that install conflicting drivers/services.</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">3) Sleep / wake issues</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>If it breaks after sleep, try disabling USB selective suspend.</li>
+        <li>Disable “Allow the computer to turn off this device to save power” on relevant USB devices.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="mt-10 text-sm text-offset">
+    Related: <a href={localizePathname(locale, "/guides/")}>Guides</a>
+  </div>
+</BaseLayout>
+

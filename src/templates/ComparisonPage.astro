@@ -1,0 +1,57 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ContentPageLayout from "~/templates/ContentPageLayout.astro";
+import type { Locale } from "~/i18n/config";
+
+export interface Props {
+  locale: Locale;
+  pathname: string;
+  entry: CollectionEntry<"comparisons">;
+  labels: {
+    tldr: string;
+    updated: string;
+    lastTested: string;
+    toc: string;
+    disclosureTitle: string;
+  };
+}
+
+const { locale, pathname, entry, labels } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<ContentPageLayout
+  locale={locale}
+  pathname={pathname}
+  title={entry.data.title}
+  description={entry.data.description}
+  headings={headings}
+  updatedAt={entry.data.updatedAt}
+  lastTestedAt={entry.data.lastTestedAt}
+  tldrLabel={labels.tldr}
+  tldr={entry.data.tldr}
+  disclosureTitle={labels.disclosureTitle}
+  disclosure={entry.data.disclosure}
+  metaLabels={{ updated: labels.updated, lastTested: labels.lastTested }}
+  tocTitle={labels.toc}
+>
+  {entry.data.scenarios?.length && (
+    <section>
+      <h2>Scenario picks</h2>
+      <div class="mt-4 grid gap-4">
+        {entry.data.scenarios.map((s) => (
+          <div class="rounded-2xl border border-default bg-offset p-5">
+            <div class="text-sm font-semibold">{s.scenario}</div>
+            <p class="mt-2 text-sm text-offset">
+              <span class="font-semibold text-default">Pick:</span> {s.pick}
+            </p>
+            <p class="mt-2 text-sm text-offset">{s.why}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <Content />
+</ContentPageLayout>
+

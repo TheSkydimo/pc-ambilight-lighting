@@ -1,0 +1,22 @@
+{
+  "title": "FAQ",
+  "items": [
+    {
+      "q": "What is Ambilight / screen-sync RGB?",
+      "a": "It’s a setup where LEDs behind/around your monitor change color based on what’s on-screen, creating an ambient glow that matches the content."
+    },
+    {
+      "q": "ARGB vs RGB — what’s the difference?",
+      "a": "ARGB is 5V addressable (each LED can be controlled individually). RGB is typically 12V non-addressable (the whole strip shows one color). Do not mix headers or voltages."
+    },
+    {
+      "q": "Why is my device not detected?",
+      "a": "Most common causes: cable/port issues (charge-only cable, flaky hub), driver/service conflicts from vendor RGB suites, or sleep/wake power settings. Start with Compatibility → Not detected."
+    },
+    {
+      "q": "Is low latency always better?",
+      "a": "Lower latency generally feels more “locked” to the screen, but stability matters more. A slightly higher-latency setup that never drops devices is often the better experience."
+    }
+  ]
+}
+

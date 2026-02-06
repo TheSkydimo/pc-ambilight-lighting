@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Locale } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
+import { localizePathname } from "~/i18n/config";
+
+const locale: Locale = "zh";
+const pathname = "/comparisons/";
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { copy } = pageData;
+
+const entries = await getCollection("comparisons", (e) =>
+  e.slug.startsWith(`${locale}/`),
+);
+
+const priority = (slug: string): number =>
+  slug.toLowerCase().includes("skydimo") ? 0 : 1;
+
+const items = entries
+  .map((e) => {
+    const slug = e.slug.split("/").slice(1).join("/");
+    return {
+      slug,
+      title: e.data.title,
+      description: e.data.description,
+      href: localizePathname(locale, `/compare/${slug}/`),
+      updatedAt: e.data.updatedAt,
+    };
+  })
+  .sort((a, b) => {
+    const p = priority(a.slug) - priority(b.slug);
+    if (p !== 0) return p;
+    const time = (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0);
+    if (time !== 0) return time;
+    return a.title.localeCompare(b.title);
+  });
+---
+
+<BaseLayout locale={locale} pathname={pathname} title={copy.nav.comparisons}>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.comparisons}</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      A vs B，但按场景给结论：关键差异、迁移成本、常见坑点。
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    {items.map((item) => (
+      <a class="rounded-2xl border border-default bg-offset p-6 hover:border-white/30" href={item.href}>
+        <div class="text-sm font-semibold">{item.title}</div>
+        <p class="mt-2 text-sm text-offset">{item.description}</p>
+        <div class="mt-4 text-xs text-white/60">{copy.common.readMore} →</div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
+

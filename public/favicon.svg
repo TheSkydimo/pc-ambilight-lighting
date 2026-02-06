@@ -1,0 +1,90 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ARGB logo">
+  <defs>
+    <!-- 背景：深色渐变，贴近网站 dark theme -->
+    <radialGradient id="bgRadial" cx="50%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="60%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+
+    <!-- 外圈 & 文本颜色：和站点 .gradient-text 一致的配色 -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>    <!-- indigo-600 -->
+      <stop offset="50%" stop-color="#d946ef"/>   <!-- fuchsia-500 -->
+      <stop offset="100%" stop-color="#ec4899"/>  <!-- pink-500 -->
+    </linearGradient>
+
+    <!-- 轻微发光，保持干净不过分炫 -->
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+      <feColorMatrix
+        in="blur"
+        type="matrix"
+        values="0 0 0 0 0.3
+                0 0 0 0 0.2
+                0 0 0 0 0.5
+                0 0 0 0.7 0"
+        result="glow"
+      />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 渐变圆环，与站点渐变保持一致（去掉大块方形背景，favicon 也更干净），加大半径以完全包住 ARGB -->
+  <circle
+    cx="128"
+    cy="128"
+    r="110"
+    fill="none"
+    stroke="url(#accentGradient)"
+    stroke-width="3"
+    opacity="0.9"
+  />
+
+  <!-- 中心柔和光晕 -->
+  <circle
+    cx="128"
+    cy="128"
+    r="80"
+    fill="url(#accentGradient)"
+    opacity="0.12"
+  />
+
+  <!-- 横向的灯带条形，呼应 RGB 控制主题 -->
+  <rect
+    x="72"
+    y="176"
+    width="112"
+    height="14"
+    rx="7"
+    ry="7"
+    fill="url(#accentGradient)"
+    opacity="0.95"
+  />
+
+  <!-- ARGB 字母：极简粗体 + 渐变填充 -->
+  <g filter="url(#softGlow)">
+    <text
+      x="128"
+      y="134"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif"
+      font-weight="800"
+      font-size="60"
+      textLength="160"
+      lengthAdjust="spacingAndGlyphs"
+      fill="url(#accentGradient)"
+      stroke="#020617"
+      stroke-width="2"
+      paint-order="stroke"
+    >
+      ARGB
+    </text>
+  </g>
+</svg>
+
+

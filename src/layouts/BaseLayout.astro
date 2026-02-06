@@ -1,0 +1,136 @@
+---
+import "@fontsource-variable/inter";
+import Footer from "~/components/footer.astro";
+import Header from "~/components/header.astro";
+import LanguagePreference from "~/components/language-preference.astro";
+import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
+import "~/styles/index.css";
+
+export interface Props {
+  locale: Locale;
+  /**
+   * Locale-agnostic pathname, e.g. "/", "/guides/", "/reviews/".
+   * Used to generate canonical + alternates and language switcher URLs.
+   */
+  pathname: string;
+  title?: string;
+  description?: string;
+}
+
+const { locale, pathname, title, description } = Astro.props;
+const { generator, site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { copy, languageOptions, head } = pageData;
+
+const hreflangMap: Record<Locale, string> = {
+  en: "en",
+  zh: "zh-Hans",
+};
+
+const navItems = [
+  { title: copy.nav.bestPicks, url: localizePathname(locale, "/best-picks/") },
+  { title: copy.nav.reviews, url: localizePathname(locale, "/reviews/") },
+  { title: copy.nav.comparisons, url: localizePathname(locale, "/comparisons/") },
+  { title: copy.nav.guides, url: localizePathname(locale, "/guides/") },
+  {
+    title: copy.nav.compatibility,
+    url: localizePathname(locale, "/compatibility/"),
+  },
+  { title: copy.nav.faq, url: localizePathname(locale, "/faq/") },
+];
+
+const footerLinks = [
+  { label: copy.footer.sections.bestPicks, href: localizePathname(locale, "/best-picks/") },
+  { label: copy.footer.sections.reviews, href: localizePathname(locale, "/reviews/") },
+  { label: copy.footer.sections.comparisons, href: localizePathname(locale, "/comparisons/") },
+  { label: copy.footer.sections.guides, href: localizePathname(locale, "/guides/") },
+  { label: copy.footer.sections.compatibility, href: localizePathname(locale, "/compatibility/") },
+  { label: copy.footer.sections.faq, href: localizePathname(locale, "/faq/") },
+];
+
+const metaTitle = title ?? copy.meta.title;
+const metaDescription = description ?? copy.meta.description;
+---
+
+<!doctype html>
+<html lang={locale} class="h-full motion-safe:scroll-smooth" data-theme="dark">
+  <head>
+    <LanguagePreference locale={locale} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/svg/favicon.svg" type="image/svg+xml" />
+    {generator && <meta name="generator" content={generator} />}
+
+    <title>{metaTitle}</title>
+    <meta name="description" content={metaDescription} />
+
+    <meta property="og:title" content={copy.meta.ogTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={copy.meta.ogDescription} />
+    <meta property="og:image" content={head.image} />
+    <meta property="og:url" content={head.canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="canonical" href={head.canonical} />
+    {head.alternates.map((alt) => (
+      <link
+        rel="alternate"
+        hrefLang={hreflangMap[alt.code]}
+        href={alt.href}
+      />
+    ))}
+    <link rel="alternate" hrefLang="x-default" href={head.canonical} />
+
+    <!-- initialize theme -->
+    <script is:inline>
+      const themeSaved = localStorage.getItem("theme");
+
+      const applyTheme = (value) => {
+        document.documentElement.dataset.theme = value;
+      };
+
+      if (themeSaved) {
+        applyTheme(themeSaved);
+      } else {
+        applyTheme("dark");
+      }
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (!localStorage.getItem("theme")) {
+            applyTheme(event.matches ? "dark" : "light");
+          }
+        });
+    </script>
+  </head>
+  <body
+    class="h-full overflow-x-hidden bg-default pt-24 text-default text-base selection:bg-secondary selection:text-white"
+  >
+    <Header
+      homeHref={localizePathname(locale, "/")}
+      siteName={copy.siteName}
+      navItems={navItems}
+      locale={locale}
+      navLabel={copy.nav.ariaLabel}
+      openLabel={copy.nav.openLabel}
+      closeLabel={copy.nav.closeLabel}
+      languageLabel={copy.language.label}
+      languageOptions={languageOptions}
+      themeLabels={copy.themeSwitcher}
+    />
+    <main class="px-8 py-12">
+      <div class="mx-auto w-full max-w-6xl">
+        <slot />
+      </div>
+    </main>
+    <Footer
+      title={copy.footer.title}
+      lead={copy.footer.lead}
+      links={footerLinks}
+    />
+  </body>
+</html>
+

@@ -1,0 +1,29 @@
+---
+export interface Props {
+  updatedAt?: Date;
+  lastTestedAt?: Date;
+  labelUpdated: string;
+  labelLastTested: string;
+}
+
+const { updatedAt, lastTestedAt, labelUpdated, labelLastTested } = Astro.props;
+
+const formatDate = (value: Date): string =>
+  value.toLocaleDateString("en-CA", { year: "numeric", month: "2-digit", day: "2-digit" });
+---
+
+<div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-offset">
+  {updatedAt && (
+    <div>
+      <span class="font-semibold text-default">{labelUpdated}:</span>{" "}
+      <time datetime={updatedAt.toISOString()}>{formatDate(updatedAt)}</time>
+    </div>
+  )}
+  {lastTestedAt && (
+    <div>
+      <span class="font-semibold text-default">{labelLastTested}:</span>{" "}
+      <time datetime={lastTestedAt.toISOString()}>{formatDate(lastTestedAt)}</time>
+    </div>
+  )}
+</div>
+

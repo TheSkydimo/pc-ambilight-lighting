@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
+import ComparisonPage from "~/templates/ComparisonPage.astro";
+
+export async function getStaticPaths() {
+  const locale = DEFAULT_LOCALE;
+  const entries = await getCollection("comparisons", (e) => e.slug.startsWith(`${locale}/`));
+  return entries.map((entry) => ({
+    params: { slug: entry.slug.split("/").slice(1).join("/") },
+    props: { entry },
+  }));
+}
+
+const locale = DEFAULT_LOCALE;
+const { entry } = Astro.props as { entry: CollectionEntry<"comparisons"> };
+const pathname = `/compare/${Astro.params.slug}/`;
+
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { copy } = pageData;
+---
+
+<ComparisonPage
+  locale={locale}
+  pathname={pathname}
+  entry={entry}
+  labels={{
+    tldr: copy.common.tldr,
+    updated: copy.common.updated,
+    lastTested: copy.common.lastTested,
+    toc: "On this page",
+    disclosureTitle: copy.footer.legal.disclosureTitle,
+  }}
+/>
+

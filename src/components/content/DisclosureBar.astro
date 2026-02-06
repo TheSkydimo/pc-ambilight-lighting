@@ -1,0 +1,16 @@
+---
+export interface Props {
+  title: string;
+  text: string;
+}
+
+const { title, text } = Astro.props;
+---
+
+<aside class="rounded-2xl border border-default bg-black/20 p-5">
+  <div class="text-xs font-semibold uppercase tracking-wide text-white/70">
+    {title}
+  </div>
+  <p class="mt-2 text-xs leading-relaxed text-offset">{text}</p>
+</aside>
+

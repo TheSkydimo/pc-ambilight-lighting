@@ -1,0 +1,29 @@
+---
+export interface Props {
+  title: string;
+  lead: string;
+  links: Array<{ label: string; href: string }>;
+}
+
+const { title, lead, links } = Astro.props;
+---
+
+<footer class="border-t border-default bg-default px-8 py-12 text-default">
+  <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-3">
+    <div class="space-y-3">
+      <div class="text-lg font-semibold tracking-tight">{title}</div>
+      <p class="text-sm text-offset">{lead}</p>
+    </div>
+    <nav class="lg:col-span-2" aria-label="Footer">
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
+        {links.map((link) => (
+          <li>
+            <a class="text-sm text-offset hover:text-secondary" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</footer>

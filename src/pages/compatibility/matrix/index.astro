@@ -1,0 +1,79 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+
+const locale = DEFAULT_LOCALE;
+const pathname = "/compatibility/matrix/";
+
+type SupportStatus = "supported" | "partial" | "not_supported" | "unknown";
+
+const statusLabel: Record<SupportStatus, string> = {
+  supported: "Supported",
+  partial: "Partial",
+  not_supported: "Not supported",
+  unknown: "Unknown",
+};
+
+// Small, easy-to-extend dataset. Move to JSON later.
+const rows: Array<{
+  software: string;
+  deviceType: string;
+  connection: string;
+  status: SupportStatus;
+  evidence?: string;
+}> = [
+  {
+    software: "Skydimo",
+    deviceType: "ARGB controller",
+    connection: "USB",
+    status: "supported",
+    evidence: "Device library coverage: 1500+ ARGB devices (support list driven).",
+  },
+  {
+    software: "OpenRGB",
+    deviceType: "Motherboard ARGB",
+    connection: "On-board header",
+    status: "partial",
+    evidence: "Depends heavily on chipset + board model; verify per-device.",
+  },
+];
+---
+
+<BaseLayout locale={locale} pathname={pathname} title="Compatibility matrix">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">Compatibility matrix</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      Filterable compatibility data, organized by software × device type × connection. Evidence and last-tested dates should always be linked from related reviews/guides.
+    </p>
+  </header>
+
+  <div class="mt-8 overflow-auto rounded-2xl border border-default">
+    <table class="min-w-[52rem] w-full border-collapse text-left text-sm">
+      <thead class="bg-black/30 text-xs uppercase tracking-wide text-white/70">
+        <tr>
+          <th class="p-4">Software</th>
+          <th class="p-4">Device type</th>
+          <th class="p-4">Connection</th>
+          <th class="p-4">Status</th>
+          <th class="p-4">Evidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr class="border-t border-default">
+            <td class="p-4 font-semibold">{row.software}</td>
+            <td class="p-4 text-offset">{row.deviceType}</td>
+            <td class="p-4 text-offset">{row.connection}</td>
+            <td class="p-4">
+              <span class="rounded-full border border-default bg-offset px-2 py-1 text-xs">
+                {statusLabel[row.status]}
+              </span>
+            </td>
+            <td class="p-4 text-offset">{row.evidence ?? "—"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>
+

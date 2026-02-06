@@ -1,0 +1,44 @@
+.content {
+  @apply text-base leading-relaxed text-default;
+}
+
+.content a {
+  @apply underline decoration-white/30 underline-offset-4 hover:text-secondary hover:decoration-secondary;
+}
+
+.content p {
+  @apply my-4 text-offset;
+}
+
+.content h2 {
+  @apply mt-10 scroll-mt-28 text-2xl font-semibold tracking-tight;
+}
+
+.content h3 {
+  @apply mt-8 scroll-mt-28 text-xl font-semibold tracking-tight;
+}
+
+.content ul {
+  @apply my-4 list-disc space-y-2 pl-5 text-offset;
+}
+
+.content ol {
+  @apply my-4 list-decimal space-y-2 pl-5 text-offset;
+}
+
+.content code {
+  @apply rounded bg-black/30 px-1 py-0.5 text-[0.95em] text-white/90;
+}
+
+.content pre {
+  @apply my-6 overflow-auto rounded-2xl border border-default bg-black/40 p-5 text-sm;
+}
+
+.content blockquote {
+  @apply my-6 border-l-2 border-secondary pl-4 text-offset;
+}
+
+.content hr {
+  @apply my-10 border-default;
+}
+
