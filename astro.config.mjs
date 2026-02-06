@@ -4,6 +4,6 @@ import { defineConfig } from "astro/config";
 
 // https://skydimo.com/config
 export default defineConfig({
-  site: "https://skydimo.com/",
+  site: "https://pc-ambilight-lighting.com/",
   integrations: [tailwind(), icon()],
 });

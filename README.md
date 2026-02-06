@@ -1,44 +1,123 @@
-# Astro Landing Page <picture><source media="(prefers-color-scheme: dark)" srcset="https://skydimo.com/assets/press/astro-icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://skydimo.com/assets/press/astro-icon-dark.png"><img align="right" valign="center" height="79" width="63" src="https://skydimo.com/assets/press/astro-icon-dark.png" alt="Astro logo" /></picture>
+# PC Ambilight Lighting
 
-> An Astro + Tailwind CSS example/template for landing pages.
+Content-first, evidence-first knowledge base for **Ambilight / screen-sync RGB** on PC: best picks, deep reviews, comparisons, guides, and a compatibility hub.
 
-<div align="center">
+- **Tech**: [Astro](https://astro.build) + Tailwind CSS
+- **Default locale**: `en` (no URL prefix)
+- **Chinese locale**: `zh` (URL prefix `/zh/`)
 
-[![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
+## What’s inside
 
-</div>
+- **Best Picks**: scenario-based recommendations with clear trade-offs
+- **Reviews**: deep dives with “best for / not for”, pros/cons, and reproducible notes
+- **Comparisons**: A vs B decisions by scenario (not spec-dumps)
+- **Guides**: install, tuning, low-latency, troubleshooting
+- **Compatibility**: structured hub (and related UX/components)
+- **i18n**: path-based locales + client-side preference redirect (see below)
+- **SEO**: canonical + `hreflang` alternates + Open Graph tags
 
-![Screenshots of Astro Landing Page](screenshots.jpg)
+Design doc (CN): see `设计.md`.
 
-## Features
+## Requirements
 
-- 💨 Tailwind CSS for styling
-- 🎨 Themeable
-  - CSS variables are defined in `src/styles/theme.css` and mapped to Tailwind classes (`tailwind.config.cjs`)
-- 🌙 Dark mode
-- 📱 Responsive (layout, images, typography)
-- ♿ Accessible (as measured by https://web.dev/measure/)
-- 🔎 SEO-enabled (as measured by https://web.dev/measure/)
-- 🔗 Open Graph tags for social media sharing
-- 💅 [Prettier](https://prettier.io/) setup for both [Astro](https://github.com/withastro/prettier-plugin-astro) and [Tailwind](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+Astro supports **even-numbered** Node.js versions. Minimum supported versions (per Astro docs) include:
 
-## Commands
+- Node `v18.20.8`
+- Node `v20.3.0`
+- Node `v22.0.0`
 
-| Command                | Action                                            |
-| :--------------------- | :------------------------------------------------ |
-| `npm install`          | Install dependencies                              |
-| `npm run dev`          | Start local dev server at `localhost:4321`        |
-| `npm run build`        | Build your production site to `./dist/`           |
-| `npm run preview`      | Preview your build locally, before deploying      |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check`  |
-| `npm run astro --help` | Get help using the Astro CLI                      |
-| `npm run format`       | Format code with [Prettier](https://prettier.io/) |
-| `npm run clean`        | Remove `node_modules` and build output            |
+You can check your version in PowerShell:
+
+```powershell
+node -v
+```
+
+## Quick start (Windows PowerShell)
+
+```powershell
+# install dependencies (recommended with package-lock.json)
+npm ci
+
+# start dev server (defaults to http://localhost:4321)
+npm run dev
+```
+
+## Scripts
+
+| Script | What it does |
+| - | - |
+| `npm run dev` | Start Astro dev server |
+| `npm run build` | Build static site to `dist/` |
+| `npm run preview` | Preview `dist/` locally |
+| `npm run format` | Format with Prettier (Astro + Tailwind class sorting) |
+| `npm run clean` | Remove `dist/`, `.astro/`, and `node_modules/` |
+
+## Project structure
+
+- `src/pages/`: route entries (including `/zh/**` pages)
+- `src/layouts/BaseLayout.astro`: global layout + SEO + language preference script
+- `src/components/`: UI components (language/theme switchers, content blocks, etc.)
+- `src/i18n/`: locale config + UI copy + page head data
+- `src/content/`: content collections (Markdown/JSON), validated by schema
+- `public/`: static assets
+
+## Content authoring
+
+This site uses Astro Content Collections. Schemas live in `src/content/config.ts` (Zod).
+
+Content is organized by **collection** and **locale**:
+
+- `src/content/bestPicks/{en,zh}/*.md`
+- `src/content/reviews/{en,zh}/*.md`
+- `src/content/comparisons/{en,zh}/*.md`
+- `src/content/guides/{en,zh}/*.md`
+- `src/content/faq/{en,zh}.json`
+
+If you add a file that doesn’t match the schema (missing required fields like `title`/`description`, etc.), build/dev will fail fast.
+
+## i18n behavior (how “default language” is chosen)
+
+This repo currently uses **path-based locales** (not Astro’s built-in `i18n` config):
+
+- **Default locale** is `en` (see `src/i18n/config.ts`). English pages live at the root (e.g. `/reviews/`).
+- **Chinese locale** is `zh`. Chinese pages are under `/zh/` (e.g. `/zh/reviews/`).
+
+Client-side preference logic (in `src/components/language-preference.astro`):
+
+- The language switcher writes `localStorage.preferredLocale`.
+- On first visit to an English (default-locale) page:
+  - If `preferredLocale` exists, it may redirect to that locale.
+  - Otherwise it inspects `navigator.languages` / `navigator.language` and may redirect to `zh` if detected.
+- When visiting a non-default locale, it persists that choice to `preferredLocale`.
+
+## “.md” URL normalization (zh)
+
+There is a dedicated redirect route at `src/pages/zh/[...path].astro` which maps:
+
+- `/zh/<something>.md` → `/zh/<something>/`
+
+This is mainly for absorbing legacy/bookmark URLs and keeping canonical paths clean.
+
+## Deployment
+
+This is a static Astro site:
+
+```powershell
+npm run build
+```
+
+Deploy the generated `dist/` to any static host.
+
+Notes:
+
+- Site URL is configured in `astro.config.mjs` (used for canonical/OG URL generation).
+
+## License
+
+See `LICENSE`.
 
 ## Credits
 
-- astronaut image
-  - source: https://github.com/withastro/astro-og-image; note: this repo is not available anymore
-- moon image
-  - source: https://unsplash.com/@nasa
-- other than that, a lot of material (showcase data, copy) was taken from official Astro sources, in particular https://skydimo.com/blog/introducing-astro/ and https://github.com/withastro/astro.build
+- Astro + Tailwind ecosystem
+- Images:
+  - `src/assets/moon.jpg`: NASA photo via Unsplash (`https://unsplash.com/@nasa`)
