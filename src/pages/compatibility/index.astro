@@ -5,13 +5,16 @@ import { localizePathname } from "~/i18n/config";
 
 const locale = DEFAULT_LOCALE;
 const pathname = "/compatibility/";
+
+const intro =
+  "A structured hub to reduce repeated troubleshooting: matrix, evidence links, and symptom-based fixes.";
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="Compatibility Hub">
+<BaseLayout locale={locale} pathname={pathname} title="Compatibility Hub" description={intro}>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">Compatibility Hub</h1>
     <p class="max-w-3xl text-sm text-offset">
-      A structured hub to reduce repeated troubleshooting: matrix, evidence links, and symptom-based fixes.
+      {intro}
     </p>
   </header>
 

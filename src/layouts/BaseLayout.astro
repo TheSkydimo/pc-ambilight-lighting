@@ -4,7 +4,7 @@ import Footer from "~/components/footer.astro";
 import Header from "~/components/header.astro";
 import LanguagePreference from "~/components/language-preference.astro";
 import type { Locale } from "~/i18n/config";
-import { localizePathname } from "~/i18n/config";
+import { DEFAULT_LOCALE, localizePathname, normalizePathname } from "~/i18n/config";
 import { buildPageData } from "~/i18n/page-data";
 import "~/styles/index.css";
 
@@ -29,6 +29,16 @@ const hreflangMap: Record<Locale, string> = {
   zh: "zh-Hans",
 };
 
+const htmlLang = hreflangMap[locale] ?? locale;
+
+const normalizedPathname = normalizePathname(pathname);
+const buildAbsoluteUrl = (path: string, base?: URL): string =>
+  base ? new URL(path, base).toString() : path;
+const xDefaultHref = buildAbsoluteUrl(
+  localizePathname(DEFAULT_LOCALE, normalizedPathname),
+  site,
+);
+
 const navItems = [
   { title: copy.nav.bestPicks, url: localizePathname(locale, "/best-picks/") },
   { title: copy.nav.reviews, url: localizePathname(locale, "/reviews/") },
@@ -52,36 +62,67 @@ const footerLinks = [
 
 const metaTitle = title ?? copy.meta.title;
 const metaDescription = description ?? copy.meta.description;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": buildAbsoluteUrl("/#website", site),
+    url: buildAbsoluteUrl("/", site),
+    name: copy.siteName,
+    inLanguage: htmlLang,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${head.canonical}#webpage`,
+    url: head.canonical,
+    name: metaTitle,
+    description: metaDescription,
+    inLanguage: htmlLang,
+    isPartOf: { "@id": buildAbsoluteUrl("/#website", site) },
+  },
+];
 ---
 
 <!doctype html>
-<html lang={locale} class="h-full motion-safe:scroll-smooth" data-theme="dark">
+<html lang={htmlLang} class="h-full motion-safe:scroll-smooth" data-theme="dark">
   <head>
     <LanguagePreference locale={locale} />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="icon" href="/svg/favicon.svg" type="image/svg+xml" />
     {generator && <meta name="generator" content={generator} />}
 
     <title>{metaTitle}</title>
     <meta name="description" content={metaDescription} />
 
-    <meta property="og:title" content={copy.meta.ogTitle} />
+    <meta property="og:title" content={metaTitle} />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content={copy.meta.ogDescription} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:site_name" content={copy.siteName} />
     <meta property="og:image" content={head.image} />
     <meta property="og:url" content={head.canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={head.image} />
 
     <link rel="canonical" href={head.canonical} />
     {head.alternates.map((alt) => (
       <link
         rel="alternate"
-        hrefLang={hreflangMap[alt.code]}
+        hreflang={hreflangMap[alt.code]}
         href={alt.href}
       />
     ))}
-    <link rel="alternate" hrefLang="x-default" href={head.canonical} />
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
 
     <!-- initialize theme -->
     <script is:inline>

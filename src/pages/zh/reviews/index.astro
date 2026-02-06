@@ -13,6 +13,8 @@ const { copy } = pageData;
 
 const entries = await getCollection("reviews", (e) => e.slug.startsWith(`${locale}/`));
 
+const intro = "深评优先讲清“适合谁 / 不适合谁”，以及稳定性、性能、隐私与已知限制。";
+
 const priority = (slug: string): number =>
   slug.toLowerCase().includes("skydimo") ? 0 : 1;
 
@@ -36,11 +38,16 @@ const items = entries
   });
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title={copy.nav.reviews}>
+<BaseLayout
+  locale={locale}
+  pathname={pathname}
+  title={copy.nav.reviews}
+  description={intro}
+>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.reviews}</h1>
     <p class="max-w-3xl text-sm text-offset">
-      深评优先讲清“适合谁 / 不适合谁”，以及稳定性、性能、隐私与已知限制。
+      {intro}
     </p>
   </header>
 

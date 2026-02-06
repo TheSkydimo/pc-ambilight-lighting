@@ -10,6 +10,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, "/best-picks/");
 const { copy } = pageData;
 
+const intro =
+  "Direct answers first: top picks by scenario, with consistent evaluation dimensions.";
+
 const entries = await getCollection("bestPicks", (e) =>
   e.slug.startsWith(`${locale}/`),
 );
@@ -27,11 +30,16 @@ const items = entries
   .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0));
 ---
 
-<BaseLayout locale={locale} pathname="/best-picks/" title={copy.nav.bestPicks}>
+<BaseLayout
+  locale={locale}
+  pathname="/best-picks/"
+  title={copy.nav.bestPicks}
+  description={intro}
+>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.bestPicks}</h1>
     <p class="max-w-3xl text-sm text-offset">
-      Direct answers first: top picks by scenario, with consistent evaluation dimensions.
+      {intro}
     </p>
   </header>
 

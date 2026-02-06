@@ -11,6 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
+const intro =
+  "Tutorials and troubleshooting: beginner setup, low latency, conflicts, “not detected”, and safety (ARGB vs RGB).";
+
 const entries = await getCollection("guides", (e) => e.slug.startsWith(`${locale}/`));
 const items = entries
   .map((e) => {
@@ -26,11 +29,11 @@ const items = entries
   .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0));
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title={copy.nav.guides}>
+<BaseLayout locale={locale} pathname={pathname} title={copy.nav.guides} description={intro}>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.guides}</h1>
     <p class="max-w-3xl text-sm text-offset">
-      Tutorials and troubleshooting: beginner setup, low latency, conflicts, “not detected”, and safety (ARGB vs RGB).
+      {intro}
     </p>
   </header>
 

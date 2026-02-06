@@ -5,13 +5,15 @@ import { localizePathname } from "~/i18n/config";
 
 const locale: Locale = "zh";
 const pathname = "/compatibility/";
+
+const intro = "用结构化数据减少重复答疑：兼容矩阵、证据链接、按症状排错。";
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="兼容性中心">
+<BaseLayout locale={locale} pathname={pathname} title="兼容性中心" description={intro}>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">兼容性中心</h1>
     <p class="max-w-3xl text-sm text-offset">
-      用结构化数据减少重复答疑：兼容矩阵、证据链接、按症状排错。
+      {intro}
     </p>
   </header>
 

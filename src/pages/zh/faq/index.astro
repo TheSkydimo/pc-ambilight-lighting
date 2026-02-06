@@ -1,6 +1,5 @@
 ---
 import { getEntry } from "astro:content";
-import invariant from "tiny-invariant";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import type { Locale } from "~/i18n/config";
 import FaqAccordion from "~/components/content/FaqAccordion.astro";
@@ -9,14 +8,18 @@ const locale: Locale = "zh";
 const pathname = "/faq/";
 
 const entry = await getEntry("faq", "zh");
-invariant(entry, "Missing FAQ data for zh");
+if (!entry) {
+  throw new Error("Missing FAQ data for zh");
+}
+
+const intro = "常见问题快速答。如果是排错，建议先看：兼容性中心 → 不识别排错。";
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="FAQ">
+<BaseLayout locale={locale} pathname={pathname} title="FAQ" description={intro}>
   <header class="space-y-3">
     <h1 class="text-3xl font-semibold tracking-tight">{entry.data.title}</h1>
     <p class="max-w-3xl text-sm text-offset">
-      常见问题快速答。如果是排错，建议先看：兼容性中心 → 不识别排错。
+      {intro}
     </p>
   </header>
 
