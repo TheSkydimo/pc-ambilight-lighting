@@ -57,6 +57,8 @@ export interface TranslationContent {
     updated: string;
     readMore: string;
     comingSoon: string;
+    keepReadingTitle: string;
+    keepReadingLead: string;
   };
 }
 
@@ -125,6 +127,9 @@ const translations: Record<Locale, TranslationContent> = {
       updated: "Updated",
       readMore: "Read more",
       comingSoon: "New content is published regularly. Check back soon.",
+      keepReadingTitle: "Keep reading",
+      keepReadingLead:
+        "Jump to the next best page for your setup: picks, reviews, comparisons, or troubleshooting.",
     },
   },
   zh: {
@@ -190,6 +195,9 @@ const translations: Record<Locale, TranslationContent> = {
       updated: "更新日期",
       readMore: "继续阅读",
       comingSoon: "内容整理中，敬请期待。",
+      keepReadingTitle: "继续阅读",
+      keepReadingLead:
+        "根据你的设备与目标，继续看：推荐榜单、深度评测、对比选型，或排错路径。",
     },
   },
 };

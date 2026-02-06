@@ -19,9 +19,18 @@ export interface Props {
   description?: string;
   ogTitle?: string;
   ogDescription?: string;
+  structuredDataExtra?: unknown[];
 }
 
-const { locale, pathname, title, description, ogTitle, ogDescription } = Astro.props;
+const {
+  locale,
+  pathname,
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  structuredDataExtra,
+} = Astro.props;
 const { generator, site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy, languageOptions, head } = pageData;
@@ -116,7 +125,7 @@ const buildBreadcrumbs = (): Array<{ name: string; href: string }> => {
 
 const breadcrumbs = buildBreadcrumbs();
 
-const structuredData = [
+const structuredDataBase = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -147,6 +156,8 @@ const structuredData = [
     })),
   },
 ];
+const structuredData =
+  structuredDataExtra?.length ? [...structuredDataBase, ...structuredDataExtra] : structuredDataBase;
 ---
 
 <!doctype html>

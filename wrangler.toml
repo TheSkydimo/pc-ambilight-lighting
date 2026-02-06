@@ -1,0 +1,7 @@
+$schema = "./node_modules/wrangler/config-schema.json"
+name = "pc-ambilight-lighting"
+pages_build_output_dir = "./dist"
+
+# Pick an explicit compatibility date (required when using a Wrangler config file
+# as the source-of-truth for Pages). Keep this updated intentionally.
+compatibility_date = "2026-02-06"

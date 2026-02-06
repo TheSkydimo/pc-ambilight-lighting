@@ -5,6 +5,8 @@ import ContentToc, { type TocHeading } from "~/components/content/ContentToc.ast
 import DisclosureBar from "~/components/content/DisclosureBar.astro";
 import TldrCard from "~/components/content/TldrCard.astro";
 import type { Locale } from "~/i18n/config";
+import { localizePathname } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
 import "~/styles/content.css";
 
 export interface Props {
@@ -38,9 +40,46 @@ const {
   metaLabels,
   tocTitle,
 } = Astro.props;
+
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { copy, head } = pageData;
+
+const hreflangMap: Record<Locale, string> = {
+  en: "en",
+  zh: "zh-Hans",
+};
+const htmlLang = hreflangMap[locale] ?? locale;
+
+const iso = (value?: Date): string | undefined =>
+  value ? value.toISOString() : undefined;
+
+const structuredDataExtra = [
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${head.canonical}#article`,
+    url: head.canonical,
+    headline: title,
+    description,
+    inLanguage: htmlLang,
+    image: head.image,
+    dateModified: iso(updatedAt),
+    isPartOf: { "@id": new URL("/#website", site).toString() },
+    mainEntityOfPage: { "@id": `${head.canonical}#webpage` },
+    author: { "@type": "Organization", name: copy.siteName },
+    publisher: { "@type": "Organization", name: copy.siteName },
+  },
+].filter((x) => x);
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
+<BaseLayout
+  locale={locale}
+  pathname={pathname}
+  title={title}
+  description={description}
+  structuredDataExtra={structuredDataExtra}
+>
   <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
     <article>
       <header class="space-y-4">
@@ -60,6 +99,41 @@ const {
       <div class="mt-10 content">
         <slot />
       </div>
+
+      <section class="mt-12 rounded-2xl border border-default bg-offset p-6">
+        <h2 class="text-xl font-semibold tracking-tight">{copy.common.keepReadingTitle}</h2>
+        <p class="mt-2 max-w-3xl text-sm text-offset">{copy.common.keepReadingLead}</p>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2">
+          <a
+            class="rounded-xl border border-default bg-default p-4 hover:border-white/30"
+            href={localizePathname(locale, "/best-picks/")}
+          >
+            <div class="text-sm font-semibold">{copy.nav.bestPicks}</div>
+            <div class="mt-1 text-sm text-offset">Quick picks by scenario.</div>
+          </a>
+          <a
+            class="rounded-xl border border-default bg-default p-4 hover:border-white/30"
+            href={localizePathname(locale, "/reviews/")}
+          >
+            <div class="text-sm font-semibold">{copy.nav.reviews}</div>
+            <div class="mt-1 text-sm text-offset">Hands-on stability + privacy notes.</div>
+          </a>
+          <a
+            class="rounded-xl border border-default bg-default p-4 hover:border-white/30"
+            href={localizePathname(locale, "/comparisons/")}
+          >
+            <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
+            <div class="mt-1 text-sm text-offset">OpenRGB vs SignalRGB and more.</div>
+          </a>
+          <a
+            class="rounded-xl border border-default bg-default p-4 hover:border-white/30"
+            href={localizePathname(locale, "/compatibility/")}
+          >
+            <div class="text-sm font-semibold">{copy.nav.compatibility}</div>
+            <div class="mt-1 text-sm text-offset">Matrix + “not detected” fixes.</div>
+          </a>
+        </div>
+      </section>
     </article>
 
     <aside>
