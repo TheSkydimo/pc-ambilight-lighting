@@ -1,4 +1,5 @@
-$schema = "./node_modules/wrangler/config-schema.json"
+# Schema hint (kept as a comment because Wrangler's TOML parser rejects `$` keys)
+# $schema = "./node_modules/wrangler/config-schema.json"
 name = "pc-ambilight-lighting"
 pages_build_output_dir = "./dist"
 

@@ -108,6 +108,21 @@ npm run build
 
 Deploy the generated `dist/` to any static host.
 
+### Cloudflare Pages (Wrangler)
+
+If you deploy with Wrangler, use the **Pages** command (not `wrangler deploy`, which is Workers-only):
+
+```powershell
+npm run build
+npm run deploy
+```
+
+Equivalent:
+
+```powershell
+npx wrangler pages deploy ./dist
+```
+
 Notes:
 
 - Site URL is configured in `astro.config.mjs` (used for canonical/OG URL generation).
