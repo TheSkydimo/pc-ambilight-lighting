@@ -11,11 +11,13 @@ export interface TranslationContent {
   nav: {
     home: string;
     bestPicks: string;
-    reviews: string;
     comparisons: string;
     guides: string;
-    compatibility: string;
+    download: string;
     faq: string;
+    about: string;
+    reviews: string;
+    compatibility: string;
     ariaLabel: string;
     openLabel: string;
     closeLabel: string;
@@ -41,11 +43,13 @@ export interface TranslationContent {
     lead: string;
     sections: {
       bestPicks: string;
-      reviews: string;
       comparisons: string;
       guides: string;
-      compatibility: string;
+      download: string;
       faq: string;
+      about: string;
+      reviews: string;
+      compatibility: string;
     };
     legal: {
       disclosureTitle: string;
@@ -67,21 +71,23 @@ const translations: Record<Locale, TranslationContent> = {
   en: {
     siteName: "PC Ambilight Lighting",
     meta: {
-      title: "Best PC Ambilight & RGB Screen Sync Guide | Top Tips & Tools (2026)",
+      title: "PC Ambilight Lighting: Best Software, Setup Guides, and Troubleshooting",
       description:
-        "Find the best PC ambilight & RGB screen sync tools, step-by-step setup guides, tutorials, comparisons, and tips to enhance your desktop lighting experience.",
-      ogTitle: "Best PC Ambilight & RGB Screen Sync Guide (2026)",
+        "Choose the right PC Ambilight software fast. Compare top picks, follow setup guides, and fix common screen-sync RGB issues.",
+      ogTitle: "PC Ambilight Lighting: Picks, Setup, and Troubleshooting",
       ogDescription:
-        "Top tools, setup tutorials, comparisons, and troubleshooting for PC Ambilight / screen-sync RGB lighting.",
+        "Make a decision first, then install and optimize. Clear picks, practical comparisons, and actionable troubleshooting.",
     },
     nav: {
       home: "Home",
       bestPicks: "Best Picks",
-      reviews: "Reviews",
       comparisons: "Comparisons",
       guides: "Guides",
-      compatibility: "Compatibility",
+      download: "Download",
       faq: "FAQ",
+      about: "About",
+      reviews: "Reviews",
+      compatibility: "Compatibility",
       ariaLabel: "Primary navigation",
       openLabel: "Open navigation",
       closeLabel: "Close navigation",
@@ -92,18 +98,18 @@ const translations: Record<Locale, TranslationContent> = {
       dark: "Use dark theme",
     },
     home: {
-      h1: "Best PC Ambilight & Screen-Sync RGB software — picked with evidence",
+      h1: "PC Ambilight Lighting for Gaming and Daily Setup",
       valueProp:
-        "Cut through the noise: stable, low-latency screen sync lighting with fewer driver conflicts. Quick “best for most” picks, deep reviews, and compatibility notes across Skydimo, SignalRGB, OpenRGB, and vendor suites.",
+        "Pick a stable setup first, then install, then optimize. Build a low-latency screen-sync RGB experience with fewer conflicts.",
       topPicksTitle: "Top picks (quick answers)",
       topPicksLead:
-        "Start here if you just want the best option for your situation — with the “why” and the trade-offs.",
+        "Skydimo, OpenRGB, and SignalRGB are the fastest shortlist for most users.",
       sectionsTitle: "Explore by task",
       trustTitle: "Why you can trust these picks",
       trustBullets: [
-        "Same rubric across pages (stability, latency, compatibility, privacy, cost)",
-        "Test dates are shown so you can judge freshness",
-        "Clear disclosure when there’s any relationship or affiliate link",
+        "Test environment and updated date are shown",
+        "Same rubric across all recommendation pages",
+        "Any commercial relationship is disclosed clearly",
       ],
     },
     footer: {
@@ -111,11 +117,13 @@ const translations: Record<Locale, TranslationContent> = {
       lead: "Evidence-first picks for PC Ambilight and screen-sync RGB.",
       sections: {
         bestPicks: "Best Picks",
-        reviews: "Reviews",
         comparisons: "Comparisons",
         guides: "Guides",
-        compatibility: "Compatibility",
+        download: "Download",
         faq: "FAQ",
+        about: "About",
+        reviews: "Reviews",
+        compatibility: "Compatibility",
       },
       legal: {
         disclosureTitle: "Disclosure",
@@ -137,21 +145,23 @@ const translations: Record<Locale, TranslationContent> = {
   zh: {
     siteName: "PC Ambilight Lighting",
     meta: {
-      title: "PC Ambilight Lighting — 榜单 / 评测 / 对比 / 教程 / 兼容性",
+      title: "PC Ambilight Lighting：推荐榜单、安装教程与排错指南",
       description:
-        "高可信 Ambilight / 屏幕同步 RGB 内容站：榜单推荐、深度评测、对比选型、安装与排错教程、兼容性中心。结论可复现，转化克制透明。",
-      ogTitle: "PC Ambilight Lighting",
+        "快速选择适合你的 PC Ambilight 方案，按步骤完成安装，并解决不识别、延迟和颜色偏差问题。",
+      ogTitle: "PC Ambilight Lighting：先选型，再安装，再优化",
       ogDescription:
-        "屏幕同步氛围灯软件与方案选型指南：透明方法论 + 兼容性说明 + 排错路径。",
+        "以先决策后细节为核心的内容结构：Best Picks、Comparisons、Guides、Download 与 FAQ 闭环。",
     },
     nav: {
       home: "首页",
       bestPicks: "推荐榜单",
-      reviews: "深度评测",
       comparisons: "对比选型",
       guides: "教程知识库",
-      compatibility: "兼容性中心",
+      download: "下载",
       faq: "FAQ",
+      about: "关于",
+      reviews: "深度评测",
+      compatibility: "兼容性中心",
       ariaLabel: "主要导航",
       openLabel: "打开导航",
       closeLabel: "关闭导航",
@@ -162,17 +172,17 @@ const translations: Record<Locale, TranslationContent> = {
       dark: "切换到暗色主题",
     },
     home: {
-      h1: "Ambilight / 屏幕同步 RGB：用证据做选择",
+      h1: "为游戏与日常场景打造稳定的 PC Ambilight Lighting",
       valueProp:
-        "用更少折腾实现稳定、低延迟的屏幕氛围灯效果。推荐克制透明，边界讲清楚，结论可复现。",
+        "先选稳定方案，再安装，再优化。用更少折腾实现更顺滑的屏幕同步 RGB 体验。",
       topPicksTitle: "快速答案（Top picks）",
-      topPicksLead: "如果你只想知道“我该选哪个”，从这里开始：结论 + 原因 + 代价。",
+      topPicksLead: "Skydimo、OpenRGB、SignalRGB 三个方案覆盖大多数起步场景。",
       sectionsTitle: "按目标浏览",
       trustTitle: "我们如何保证可信",
       trustBullets: [
-        "所有榜单使用同一套评估维度与口径",
-        "标注测试环境与“最后测试日期”",
-        "一旦涉及自家产品或利益关系，页面明确披露",
+        "公开测试环境与更新日期",
+        "全站使用统一评估维度与口径",
+        "涉及商业关系时明确披露",
       ],
     },
     footer: {
@@ -180,11 +190,13 @@ const translations: Record<Locale, TranslationContent> = {
       lead: "内容优先，证据优先。不搞花活。",
       sections: {
         bestPicks: "推荐榜单",
-        reviews: "深度评测",
         comparisons: "对比选型",
         guides: "教程知识库",
-        compatibility: "兼容性中心",
+        download: "下载",
         faq: "FAQ",
+        about: "关于",
+        reviews: "深度评测",
+        compatibility: "兼容性中心",
       },
       legal: {
         disclosureTitle: "披露说明",

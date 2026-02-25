@@ -1,0 +1,35 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { DEFAULT_LOCALE } from "~/i18n/config";
+
+const locale = DEFAULT_LOCALE;
+const pathname = "/about/";
+const title = "About";
+const description = "Who we are, how we test, and how we disclose relationships.";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">About PC Ambilight Lighting</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      We focus on practical content for software selection, setup, and troubleshooting in PC Ambilight workflows.
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4">
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">Content principles</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>Same rubric across recommendation and comparison pages.</li>
+        <li>Conclusions must be reproducible in practical setup paths.</li>
+        <li>Boundaries and trade-offs are stated, not hidden.</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">Disclosure policy</h2>
+      <p class="mt-2 text-sm text-offset">
+        If a page contains affiliate links or discusses our own products, we disclose it explicitly on that page.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

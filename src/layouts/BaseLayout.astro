@@ -53,23 +53,18 @@ const xDefaultHref = buildAbsoluteUrl(
 const navItems = [
   { title: copy.nav.home, url: localizePathname(locale, "/") },
   { title: copy.nav.bestPicks, url: localizePathname(locale, "/best-picks/") },
-  { title: copy.nav.reviews, url: localizePathname(locale, "/reviews/") },
   { title: copy.nav.comparisons, url: localizePathname(locale, "/comparisons/") },
   { title: copy.nav.guides, url: localizePathname(locale, "/guides/") },
-  {
-    title: copy.nav.compatibility,
-    url: localizePathname(locale, "/compatibility/"),
-  },
   { title: copy.nav.faq, url: localizePathname(locale, "/faq/") },
+  { title: copy.nav.about, url: localizePathname(locale, "/about/") },
 ];
 
 const footerLinks = [
   { label: copy.footer.sections.bestPicks, href: localizePathname(locale, "/best-picks/") },
-  { label: copy.footer.sections.reviews, href: localizePathname(locale, "/reviews/") },
   { label: copy.footer.sections.comparisons, href: localizePathname(locale, "/comparisons/") },
   { label: copy.footer.sections.guides, href: localizePathname(locale, "/guides/") },
-  { label: copy.footer.sections.compatibility, href: localizePathname(locale, "/compatibility/") },
   { label: copy.footer.sections.faq, href: localizePathname(locale, "/faq/") },
+  { label: copy.footer.sections.about, href: localizePathname(locale, "/about/") },
 ];
 
 const metaTitle = title ?? copy.meta.title;
@@ -95,6 +90,7 @@ const buildBreadcrumbs = (): Array<{ name: string; href: string }> => {
     guides: copy.nav.guides,
     compatibility: copy.nav.compatibility,
     faq: copy.nav.faq,
+    about: copy.nav.about,
   };
 
   const sectionLabel = sectionLabelMap[section];

@@ -2,24 +2,36 @@
   "title": "PC Ambilight FAQ",
   "items": [
     {
-      "q": "What is Ambilight / screen-sync RGB?",
-      "a": "It’s a setup where LEDs behind/around your monitor change color based on what’s on-screen, creating an ambient glow that matches the content."
+      "q": "Will Ambilight noticeably hurt gaming FPS?",
+      "a": "Usually not, if capture settings and effect complexity are reasonable. Start with lower smoothing and fewer zones. Detailed steps: /guides/low-latency/."
     },
     {
-      "q": "ARGB vs RGB — what’s the difference?",
-      "a": "RGB is usually 12V 4-pin (12V+R+G+B), so the whole strip changes color together. ARGB is usually 5V 3-pin (5V+Data+GND), so each LED can be controlled individually. RGB is best for uniform static color, while ARGB supports flowing and per-LED effects."
+      "q": "Why is my RGB device not detected?",
+      "a": "Most cases are cable, power, or driver/service conflict issues. Check USB cable quality, avoid unstable hubs, and remove competing suites. Full troubleshooting: /compatibility/not-detected/."
     },
     {
-      "q": "Can I plug RGB and ARGB into each other?",
-      "a": "No. Plugging 5V ARGB into a 12V RGB header can burn LEDs immediately; plugging 12V RGB into 5V ARGB usually will not work and can still damage hardware. Always verify pin count (3-pin vs 4-pin) and header labels before connecting."
+      "q": "Why do colors look wrong or unstable?",
+      "a": "Check strip order mapping, lower saturation, and verify color channel order. White-balance mismatch is common. Start from setup guide then calibrate: /guides/pc-ambilight-setup-tutorial/."
     },
     {
-      "q": "Why is my device not detected?",
-      "a": "Most common causes: cable/port issues (charge-only cable, flaky hub), driver/service conflicts from vendor RGB suites, or sleep/wake power settings. Start with Compatibility → Not detected."
+      "q": "How should I choose between Skydimo, OpenRGB, and SignalRGB?",
+      "a": "Pick by scenario first: stable defaults, DIY freedom, or effects ecosystem. Use the decision page first, then compare two finalists. Start here: /best-picks/."
     },
     {
-      "q": "Is low latency always better?",
-      "a": "Lower latency generally feels more “locked” to the screen, but stability matters more. A slightly higher-latency setup that never drops devices is often the better experience."
+      "q": "Can I run vendor RGB software and a universal tool together?",
+      "a": "Not recommended when both control the same device. Conflicting drivers/services are a top source of disconnects and lag. Keep one control plane whenever possible."
+    },
+    {
+      "q": "Can I plug ARGB and RGB headers interchangeably?",
+      "a": "No. ARGB is usually 5V 3-pin, RGB is usually 12V 4-pin. Mixing them can damage hardware. Safety guide: /guides/argb-vs-rgb/."
+    },
+    {
+      "q": "Should I switch software often to find the best effects?",
+      "a": "Frequent switching increases migration cost and conflict risk. Only migrate when you hit a clear bottleneck in stability or compatibility. Compare before switching: /comparisons/."
+    },
+    {
+      "q": "What should I do right after download?",
+      "a": "Skydimo supports official website, Microsoft Store, and Steam downloads. Use one platform path end-to-end without mixing sources, then follow setup steps: /guides/pc-ambilight-setup-tutorial/."
     }
   ]
 }

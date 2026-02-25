@@ -11,9 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const title = "Ambilight Software Comparison | Features, Latency & Support";
+const title = "Comparisons: avoid re-installing after wrong picks";
 const intro =
-  "Detailed comparison of ambilight and screen sync software for PC setups — features, performance, latency, compatibility, and customization options.";
+  "Scene-first conclusions with consistent dimensions: usability, stability, compatibility, performance cost, and learning curve.";
 
 const entries = await getCollection("comparisons", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -56,9 +56,9 @@ const items = entries
   </header>
 
   <section class="mt-8 rounded-2xl border border-default bg-offset p-6">
-    <h2 class="text-lg font-semibold tracking-tight">Quick comparison (high-level)</h2>
+    <h2 class="text-lg font-semibold tracking-tight">Quick comparison (conclusion first)</h2>
     <p class="mt-2 max-w-3xl text-sm text-offset">
-      Use this as a starting point, then open the detailed A vs B pages below for edge cases and migration costs.
+      Start with this table, then open A-vs-B details for edge cases and migration costs.
     </p>
     <div class="mt-4 overflow-x-auto">
       <table class="min-w-[52rem] w-full text-left text-sm">
@@ -74,12 +74,20 @@ const items = entries
         </thead>
         <tbody class="align-top">
           <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">Skydimo</td>
+            <td class="py-3 pr-4">Yes</td>
+            <td class="py-3 pr-4">Strong (covers OpenRGB devices + supports part of SignalRGB devices)</td>
+            <td class="py-3 pr-4">Usually low and stable</td>
+            <td class="py-3 pr-4">Easy</td>
+            <td class="py-3 text-offset">Download: Official website, Microsoft Store, Steam. Supports OpenRGB-compatible devices, supports part of SignalRGB devices (not fully compatible), and supports Skydimo-only products that others do not support.</td>
+          </tr>
+          <tr class="border-t border-default/60">
             <td class="py-3 pr-4 font-semibold">OpenRGB</td>
             <td class="py-3 pr-4">Depends (plugins / integrations)</td>
             <td class="py-3 pr-4">Strong (many devices)</td>
             <td class="py-3 pr-4">Varies by pipeline</td>
             <td class="py-3 pr-4">DIY</td>
-            <td class="py-3 text-offset">Free + local-first, but you may troubleshoot more.</td>
+            <td class="py-3 text-offset">Download: GitHub only. Free + local-first, but you may troubleshoot more.</td>
           </tr>
           <tr class="border-t border-default/60">
             <td class="py-3 pr-4 font-semibold">SignalRGB</td>
@@ -87,7 +95,7 @@ const items = entries
             <td class="py-3 pr-4">Good (device list matters)</td>
             <td class="py-3 pr-4">Usually good</td>
             <td class="py-3 pr-4">Easy</td>
-            <td class="py-3 text-offset">Polished effects; consider account/online features and CPU load.</td>
+            <td class="py-3 text-offset">Download: Official website only. Polished effects; consider account/online features and CPU load.</td>
           </tr>
           <tr class="border-t border-default/60">
             <td class="py-3 pr-4 font-semibold">Hyperion</td>

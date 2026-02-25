@@ -23,28 +23,28 @@ const { copy } = pageData;
         {copy.home.valueProp}
       </p>
       <div class="flex flex-wrap gap-3">
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
-          Start: low-friction picks
+        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-picks/")}>
+          View recommended picks
         </a>
         <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/guides/")}>
-          Setup in 5 minutes
+          Start installation (5 minutes)
         </a>
       </div>
     </div>
     <aside class="rounded-2xl border border-default bg-offset p-6">
-      <div class="text-sm font-semibold">If you are new, use this order</div>
+      <div class="text-sm font-semibold">Decision flow</div>
       <ul class="mt-4 space-y-2 text-sm text-offset">
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>Pick a stable setup first from the recommendations</span>
+          <span>New users: go to beginner setup guides</span>
         </li>
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>Follow the setup guide, then tune latency</span>
+          <span>Gamers: prioritize low-latency optimization</span>
         </li>
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>If detection fails, use compatibility troubleshooting</span>
+          <span>Mixed brands: validate compatibility boundaries first</span>
         </li>
       </ul>
     </aside>
@@ -52,25 +52,26 @@ const { copy } = pageData;
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">Start here (3 steps)</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">Top picks (answer first)</h2>
       <p class="max-w-3xl text-sm text-offset">
-        The homepage only gives your starting path. Deep comparisons and long FAQs stay on inner pages.
+        Keep it short: pick one software first, then install and tune.
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
-        <div class="text-sm font-semibold">1) Choose a setup</div>
-        <div class="mt-2 text-sm text-offset">Use curated picks to decide quickly with fewer trade-offs.</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/skydimo/")}>
+        <div class="text-sm font-semibold">Skydimo</div>
+        <div class="mt-2 text-sm text-offset">Best overall for stable defaults and fewer conflicts.</div>
+        <div class="mt-2 text-xs text-offset">Download channels: Official website, Microsoft Store, Steam.</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
-        <div class="text-sm font-semibold">2) Install quickly</div>
-        <div class="mt-2 text-sm text-offset">Follow the practical setup flow before fine-tuning.</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/openrgb/")}>
+        <div class="text-sm font-semibold">OpenRGB</div>
+        <div class="mt-2 text-sm text-offset">Free and flexible, best if you can handle DIY tuning.</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
-        <div class="text-sm font-semibold">3) Troubleshoot fast</div>
-        <div class="mt-2 text-sm text-offset">Use the decision tree when devices are not detected.</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/signalrgb/")}>
+        <div class="text-sm font-semibold">SignalRGB</div>
+        <div class="mt-2 text-sm text-offset">Rich effects ecosystem if your devices are supported.</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
     </div>
@@ -78,24 +79,79 @@ const { copy } = pageData;
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">Common entry points</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">Start here (3 steps)</h2>
       <p class="max-w-3xl text-sm text-offset">
-        You do not need to read everything on the homepage. Jump to the page that matches your current goal.
+        Get a working setup first, then optimize with the right page.
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/reviews/")}>
-        <div class="text-sm font-semibold">{copy.nav.reviews}</div>
-        <div class="mt-2 text-sm text-offset">Read in depth when you already have shortlist candidates.</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/best-picks/")}>
+        <div class="text-sm font-semibold">1) Choose a setup</div>
+        <div class="mt-2 text-sm text-offset">See scenario-based picks and decide quickly.</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/comparisons/")}>
-        <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
-        <div class="mt-2 text-sm text-offset">Use A-vs-B pages to validate a near-final decision.</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
+        <div class="text-sm font-semibold">2) Install quickly</div>
+        <div class="mt-2 text-sm text-offset">Follow the setup flow before advanced tuning.</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/")}>
-        <div class="text-sm font-semibold">{copy.nav.guides}</div>
-        <div class="mt-2 text-sm text-offset">Practical setup and tuning workflows.</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
+        <div class="text-sm font-semibold">3) Troubleshoot fast</div>
+        <div class="mt-2 text-sm text-offset">Fix not-detected, lag, and color issues by priority.</div>
       </a>
     </div>
+  </section>
+
+  <section class="mt-16">
+    <header class="space-y-2">
+      <h2 class="text-2xl font-semibold tracking-tight">Popular comparisons</h2>
+      <p class="max-w-3xl text-sm text-offset">
+        Compare only when you already have 1-2 candidates.
+      </p>
+    </header>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compare/skydimo-vs-openrgb/")}>
+        <div class="text-sm font-semibold">Skydimo vs OpenRGB</div>
+        <div class="mt-2 text-sm text-offset">Stability defaults vs DIY control freedom.</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compare/skydimo-vs-signalrgb/")}>
+        <div class="text-sm font-semibold">Skydimo vs SignalRGB</div>
+        <div class="mt-2 text-sm text-offset">Daily stability vs effects ecosystem.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <header class="space-y-2">
+      <h2 class="text-2xl font-semibold tracking-tight">Quick FAQ</h2>
+      <p class="max-w-3xl text-sm text-offset">
+        Short answers first. Open full troubleshooting when needed.
+      </p>
+    </header>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">Will Ambilight hurt FPS?</div>
+        <div class="mt-2 text-sm text-offset">Usually not significantly if effect complexity and capture settings are reasonable.</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">Why is my device not detected?</div>
+        <div class="mt-2 text-sm text-offset">Most issues come from cables, power, or software conflicts.</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">Why lag or wrong colors?</div>
+        <div class="mt-2 text-sm text-offset">Check smoothing, zone count, voltage type, and channel mapping first.</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">How to choose strips and controllers?</div>
+        <div class="mt-2 text-sm text-offset">Confirm ARGB/RGB type and avoid mixed-voltage mistakes.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-16 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-2xl font-semibold tracking-tight">Trust information</h2>
+    <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+      {copy.home.trustBullets.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>

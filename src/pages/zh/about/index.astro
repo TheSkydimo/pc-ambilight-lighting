@@ -1,0 +1,35 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import type { Locale } from "~/i18n/config";
+
+const locale: Locale = "zh";
+const pathname = "/about/";
+const title = "关于";
+const description = "我们是谁、如何测试、以及如何披露利益关系。";
+---
+
+<BaseLayout locale={locale} pathname={pathname} title={title} description={description}>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-semibold tracking-tight">关于 PC Ambilight Lighting</h1>
+    <p class="max-w-3xl text-sm text-offset">
+      我们专注于 PC Ambilight 的选型、安装与排错内容，帮助你用更短路径完成可用配置。
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-4">
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">内容原则</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+        <li>推荐与对比页使用统一评估维度和口径。</li>
+        <li>结论优先可复现，避免只给“参数党”结论。</li>
+        <li>明确边界与代价，不隐藏限制条件。</li>
+      </ul>
+    </section>
+    <section class="rounded-2xl border border-default bg-offset p-6">
+      <h2 class="text-xl font-semibold tracking-tight">披露原则</h2>
+      <p class="mt-2 text-sm text-offset">
+        若页面涉及自家产品、联盟链接或商业合作，会在该页面做显式披露。
+      </p>
+    </section>
+  </div>
+</BaseLayout>

@@ -10,7 +10,8 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, "/best-picks/");
 const { copy } = pageData;
 
-const intro = "先给结论，再讲原因：按场景推荐，统一口径评估。";
+const title = "推荐榜单：3 分钟完成 PC Ambilight 选型";
+const intro = "先给结论，再讲原因。按场景快速选型，再进入下载或安装。";
 
 const entries = await getCollection("bestPicks", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -32,15 +33,25 @@ const items = entries
 <BaseLayout
   locale={locale}
   pathname="/best-picks/"
-  title={copy.nav.bestPicks}
+  title={title}
   description={intro}
 >
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.bestPicks}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>
   </header>
+
+  <section class="mt-8 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-lg font-semibold tracking-tight">{copy.common.tldr}</h2>
+    <p class="mt-2 text-sm text-offset">
+      如果你想最少折腾，优先选稳定默认项。进阶灯效和复杂自动化放到第二阶段。
+    </p>
+    <p class="mt-2 text-sm text-offset">
+      Skydimo 支持官网、Microsoft Store 与 Steam 下载。
+    </p>
+  </section>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2">
     {items.map((item) => (

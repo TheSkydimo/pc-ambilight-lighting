@@ -11,9 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const title = "Best PC Ambilight Software Picks (2026) — By Scenario";
+const title = "Best Picks: choose your PC Ambilight setup in 3 minutes";
 const intro =
-  "Quick picks for PC Ambilight / screen-sync RGB setups—based on stability, latency, compatibility, privacy, and cost.";
+  "Conclusion first: use scenario-based picks to decide quickly, then open the matching install or comparison page.";
 
 const entries = await getCollection("bestPicks", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -44,6 +44,16 @@ const items = entries
       {intro}
     </p>
   </header>
+
+  <section class="mt-8 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-lg font-semibold tracking-tight">{copy.common.tldr}</h2>
+    <p class="mt-2 text-sm text-offset">
+      If you want the lowest-friction path, pick a stable default first. Move to deep customization in phase two.
+    </p>
+    <p class="mt-2 text-sm text-offset">
+      Skydimo is available from the official website, Microsoft Store, and Steam.
+    </p>
+  </section>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2">
     {items.map((item) => (

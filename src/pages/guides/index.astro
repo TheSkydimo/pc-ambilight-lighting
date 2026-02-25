@@ -11,9 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const title = "PC Ambilight Setup Guides — Low Latency, Conflicts, Not Detected";
+const title = "Guides: install, tune, and troubleshoot by steps";
 const intro =
-  "Install, tune low latency, avoid driver conflicts, fix “not detected”, and stay safe (ARGB vs RGB wiring).";
+  "Start from usable, not perfect. Follow reproducible setup and troubleshooting steps for low-latency daily use.";
 
 const entries = await getCollection("guides", (e) => e.slug.startsWith(`${locale}/`));
 const items = entries

@@ -23,28 +23,28 @@ const { copy } = pageData;
         {copy.home.valueProp}
       </p>
       <div class="flex flex-wrap gap-3">
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
-          先看：低折腾推荐
+        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-picks/")}>
+          查看推荐方案
         </a>
         <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/guides/")}>
-          先装起来（5 分钟）
+          开始安装（5 分钟）
         </a>
       </div>
     </div>
     <aside class="rounded-2xl border border-default bg-offset p-6">
-      <div class="text-sm font-semibold">第一次看，按这个顺序走</div>
+      <div class="text-sm font-semibold">决策分流</div>
       <ul class="mt-4 space-y-2 text-sm text-offset">
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>先看推荐：选一个“先能稳定跑起来”的方案</span>
+          <span>新手用户：先看入门安装路径</span>
         </li>
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>再按教程完成安装，再做低延迟优化</span>
+          <span>游戏用户：优先低延迟优化流程</span>
         </li>
         <li class="flex gap-2">
           <span aria-hidden="true" class="text-secondary">•</span>
-          <span>遇到不识别/冲突，再去兼容性中心排错</span>
+          <span>多品牌用户：先核对兼容边界与冲突项</span>
         </li>
       </ul>
     </aside>
@@ -52,25 +52,26 @@ const { copy } = pageData;
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">从这里开始（3 步）</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">Top Picks（先给答案）</h2>
       <p class="max-w-3xl text-sm text-offset">
-        首页只做起步决策：先选，再装，最后排错；详细内容在对应内页展开。
+        先在三款主流方案里做第一轮选择，再进入细节页。
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
-        <div class="text-sm font-semibold">1) 先选方案</div>
-        <div class="mt-2 text-sm text-offset">直接看推荐榜单，先找到最稳妥的起步选项。</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/skydimo/")}>
+        <div class="text-sm font-semibold">Skydimo</div>
+        <div class="mt-2 text-sm text-offset">综合推荐：默认稳定、上手快，适合先跑通再细调。</div>
+        <div class="mt-2 text-xs text-offset">支持下载渠道：官网、Microsoft Store、Steam。</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
-        <div class="text-sm font-semibold">2) 快速安装</div>
-        <div class="mt-2 text-sm text-offset">按教程一步步接线和配置，先实现可用再细调。</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/openrgb/")}>
+        <div class="text-sm font-semibold">OpenRGB</div>
+        <div class="mt-2 text-sm text-offset">开源免费：可玩性高，适合愿意投入时间调试的用户。</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
-        <div class="text-sm font-semibold">3) 有问题就排错</div>
-        <div class="mt-2 text-sm text-offset">设备不识别、灯效异常，按排错树快速定位。</div>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/reviews/signalrgb/")}>
+        <div class="text-sm font-semibold">SignalRGB</div>
+        <div class="mt-2 text-sm text-offset">效果丰富：生态完整，但需关注支持列表与资源占用。</div>
         <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
     </div>
@@ -78,25 +79,80 @@ const { copy } = pageData;
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">常用入口</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">从这里开始（3 步）</h2>
       <p class="max-w-3xl text-sm text-offset">
-        你不需要在首页看完全部内容，按目标进入对应页面即可。
+        用“先选型、再安装、再排错”的顺序减少无效折腾。
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/reviews/")}>
-        <div class="text-sm font-semibold">{copy.nav.reviews}</div>
-        <div class="mt-2 text-sm text-offset">想深入理解再看评测，不影响你先落地。</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/best-picks/")}>
+        <div class="text-sm font-semibold">1) 先选方案</div>
+        <div class="mt-2 text-sm text-offset">按人群场景快速确定主方案。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/comparisons/")}>
-        <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
-        <div class="mt-2 text-sm text-offset">已有候选时再看 A vs B，决策会更快。</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
+        <div class="text-sm font-semibold">2) 快速安装</div>
+        <div class="mt-2 text-sm text-offset">先跑通连接与初始化，再做进阶优化。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/")}>
-        <div class="text-sm font-semibold">{copy.nav.guides}</div>
-        <div class="mt-2 text-sm text-offset">需要动手就看教程，减少反复试错。</div>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
+        <div class="text-sm font-semibold">3) 有问题就排错</div>
+        <div class="mt-2 text-sm text-offset">按优先级处理不识别、延迟和偏色问题。</div>
       </a>
     </div>
+  </section>
+
+  <section class="mt-16">
+    <header class="space-y-2">
+      <h2 class="text-2xl font-semibold tracking-tight">热门对比入口</h2>
+      <p class="max-w-3xl text-sm text-offset">
+        已有候选时再进对比页，决策会更快更稳。
+      </p>
+    </header>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compare/skydimo-vs-openrgb/")}>
+        <div class="text-sm font-semibold">Skydimo vs OpenRGB</div>
+        <div class="mt-2 text-sm text-offset">稳定默认和 DIY 自由度如何取舍。</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compare/skydimo-vs-signalrgb/")}>
+        <div class="text-sm font-semibold">Skydimo vs SignalRGB</div>
+        <div class="mt-2 text-sm text-offset">游戏场景下谁更省心，迁移成本如何。</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <header class="space-y-2">
+      <h2 class="text-2xl font-semibold tracking-tight">常见问题快答</h2>
+      <p class="max-w-3xl text-sm text-offset">
+        每条先给短答案，再进入完整排错步骤。
+      </p>
+    </header>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">Ambilight 会影响游戏帧率吗？</div>
+        <div class="mt-2 text-sm text-offset">通常不会显著影响，关键在软件占用与效果复杂度。</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">为什么设备无法识别？</div>
+        <div class="mt-2 text-sm text-offset">多见于线材、电源、驱动冲突或睡眠唤醒状态。</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">为什么会有延迟或颜色不准？</div>
+        <div class="mt-2 text-sm text-offset">优先检查平滑、分区、接口类型与色彩通道映射。</div>
+      </a>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
+        <div class="text-sm font-semibold">如何选择灯带与控制器？</div>
+        <div class="mt-2 text-sm text-offset">先确认 ARGB/RGB 类型，避免混插导致硬件风险。</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-16 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-2xl font-semibold tracking-tight">信任信息</h2>
+    <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-offset">
+      {copy.home.trustBullets.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>
 

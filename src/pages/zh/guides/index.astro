@@ -11,8 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
+const title = "教程知识库：安装可复现，排错可执行";
 const intro =
-  "教程与排错：入门安装、低延迟优化、冲突处理、“不识别”排查，以及 ARGB/RGB 安全知识。";
+  "从“可用”开始，而不是从“完美”开始。先跑通，再优化，再处理疑难问题。";
 
 const entries = await getCollection("guides", (e) => e.slug.startsWith(`${locale}/`));
 const items = entries
@@ -29,9 +30,9 @@ const items = entries
   .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0));
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title={copy.nav.guides} description={intro}>
+<BaseLayout locale={locale} pathname={pathname} title={title} description={intro}>
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.guides}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>
