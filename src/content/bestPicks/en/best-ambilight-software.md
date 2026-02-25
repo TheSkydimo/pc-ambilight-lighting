@@ -1,6 +1,6 @@
 ---
-title: "Best Ambilight Software (2026): stable, low-latency picks"
-description: "Quick recommendations for screen-sync Ambilight setups, with transparent trade-offs and evidence-first structure."
+title: "Best PC Ambilight & Screen Sync Software (Free & Paid 2026)"
+description: "Discover the best PC ambilight and RGB screen sync software for Windows and PC setups, including features, pros/cons, and performance tips."
 updatedAt: 2026-02-06
 lastTestedAt: 2026-02-06
 tldr: "If you want the best overall experience with minimal drama, pick the option that matches your device mix and tolerance for setup complexity. Stability beats perfect specs."

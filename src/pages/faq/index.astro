@@ -2,24 +2,53 @@
 import { getEntry } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { DEFAULT_LOCALE } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
 import FaqAccordion from "~/components/content/FaqAccordion.astro";
 
 const locale = DEFAULT_LOCALE;
 const pathname = "/faq/";
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { head } = pageData;
+const htmlLang = "en";
 
 const entry = await getEntry("faq", "en");
 if (!entry) {
   throw new Error("Missing FAQ data for en");
 }
 
-const title = "PC Ambilight FAQ — Setup, Compatibility, Troubleshooting";
+const title = "PC Ambilight FAQ | Screen Sync RGB Lighting Answers";
 const intro =
-  "Fast answers for PC Ambilight / screen-sync RGB setups. If you’re troubleshooting, start with Compatibility → Not detected.";
+  "Get answers to frequently asked questions about PC ambilight and screen sync lighting, including setup issues, hardware requirements, and software tips.";
+
+const structuredDataExtra = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${head.canonical}#faq`,
+    url: head.canonical,
+    inLanguage: htmlLang,
+    mainEntity: entry.data.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
+];
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title={title} description={intro}>
+<BaseLayout
+  locale={locale}
+  pathname={pathname}
+  title={title}
+  description={intro}
+  structuredDataExtra={structuredDataExtra}
+>
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{entry.data.title}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>

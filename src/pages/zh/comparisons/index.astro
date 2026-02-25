@@ -11,7 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const intro = "A vs B，但按场景给结论：关键差异、迁移成本、常见坑点。";
+const title = "Ambilight 软件对比：功能、延迟、兼容与支持";
+const intro =
+  "面向 PC 屏幕同步场景的软件深度对比：功能点、性能与延迟、兼容性、可定制性与常见坑点。";
 
 const entries = await getCollection("comparisons", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -43,15 +45,70 @@ const items = entries
 <BaseLayout
   locale={locale}
   pathname={pathname}
-  title={copy.nav.comparisons}
+  title={title}
   description={intro}
 >
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{copy.nav.comparisons}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>
   </header>
+
+  <section class="mt-8 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-lg font-semibold tracking-tight">快速对比（高层结论）</h2>
+    <p class="mt-2 max-w-3xl text-sm text-offset">
+      先用这张表做初筛，再打开下方的 A vs B 文章看边界条件与迁移成本。
+    </p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="min-w-[52rem] w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wide text-offset">
+          <tr>
+            <th class="py-2 pr-4">软件</th>
+            <th class="py-2 pr-4">屏幕同步</th>
+            <th class="py-2 pr-4">设备控制</th>
+            <th class="py-2 pr-4">延迟</th>
+            <th class="py-2 pr-4">上手</th>
+            <th class="py-2">备注</th>
+          </tr>
+        </thead>
+        <tbody class="align-top">
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">OpenRGB</td>
+            <td class="py-3 pr-4">视插件/链路而定</td>
+            <td class="py-3 pr-4">强（设备覆盖广）</td>
+            <td class="py-3 pr-4">取决于管线</td>
+            <td class="py-3 pr-4">偏折腾</td>
+            <td class="py-3 text-offset">免费、本地优先；但更需要排错能力。</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">SignalRGB</td>
+            <td class="py-3 pr-4">支持</td>
+            <td class="py-3 pr-4">不错（依赖支持列表）</td>
+            <td class="py-3 pr-4">通常较好</td>
+            <td class="py-3 pr-4">较容易</td>
+            <td class="py-3 text-offset">效果与易用性强；注意账号/联网特性与资源占用。</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">Hyperion</td>
+            <td class="py-3 pr-4">支持</td>
+            <td class="py-3 pr-4">取决于输出方式</td>
+            <td class="py-3 pr-4">调好后很好</td>
+            <td class="py-3 pr-4">中等</td>
+            <td class="py-3 text-offset">更适合 DIY/外部采集；配置项多。</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">Prismatik</td>
+            <td class="py-3 pr-4">支持</td>
+            <td class="py-3 pr-4">偏 LED 控制器链路</td>
+            <td class="py-3 pr-4">往往较低</td>
+            <td class="py-3 pr-4">中等</td>
+            <td class="py-3 text-offset">经典 PC 屏幕同步工具；更依赖兼容控制器。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2">
     {items.map((item) => (

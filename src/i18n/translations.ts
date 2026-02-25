@@ -66,12 +66,12 @@ const translations: Record<Locale, TranslationContent> = {
   en: {
     siteName: "PC Ambilight Lighting",
     meta: {
-      title: "Best PC Ambilight Software (2026) — Picks, Reviews & Compatibility",
+      title: "Best PC Ambilight & RGB Screen Sync Guide | Top Tips & Tools (2026)",
       description:
-        "Find the best PC Ambilight / screen-sync RGB software for your setup. Evidence-first picks, OpenRGB vs SignalRGB comparisons, deep reviews, and a compatibility hub (plus fast troubleshooting).",
-      ogTitle: "Best PC Ambilight Software (2026)",
+        "Find the best PC ambilight & RGB screen sync tools, step-by-step setup guides, tutorials, comparisons, and tips to enhance your desktop lighting experience.",
+      ogTitle: "Best PC Ambilight & RGB Screen Sync Guide (2026)",
       ogDescription:
-        "Evidence-first picks, reviews, comparisons, and a compatibility hub for PC Ambilight / screen-sync RGB setups.",
+        "Top tools, setup tutorials, comparisons, and troubleshooting for PC Ambilight / screen-sync RGB lighting.",
     },
     nav: {
       bestPicks: "Best Picks",

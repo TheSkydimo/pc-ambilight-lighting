@@ -1,6 +1,6 @@
 ---
-title: "最佳 Ambilight 软件（2026）：稳定优先的推荐"
-description: "屏幕同步氛围灯软件的快速推荐：结论直给、代价讲清、结构可复用。"
+title: "最佳 PC Ambilight / 屏幕同步软件推荐（免费 & 付费，2026）"
+description: "盘点 Windows / PC 上值得用的 Ambilight 与 RGB 屏幕同步软件：功能亮点、优缺点、性能与延迟建议一页看懂。"
 updatedAt: 2026-02-06
 lastTestedAt: 2026-02-06
 tldr: "先按“设备混搭程度 + 你愿意折腾多少”选方向。稳定性通常比极限参数更重要。"

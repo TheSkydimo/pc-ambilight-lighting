@@ -2,22 +2,53 @@
 import { getEntry } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import type { Locale } from "~/i18n/config";
+import { buildPageData } from "~/i18n/page-data";
 import FaqAccordion from "~/components/content/FaqAccordion.astro";
 
 const locale: Locale = "zh";
 const pathname = "/faq/";
+const { site } = Astro;
+const pageData = buildPageData(locale, site, pathname);
+const { head } = pageData;
+const htmlLang = "zh-Hans";
 
 const entry = await getEntry("faq", "zh");
 if (!entry) {
   throw new Error("Missing FAQ data for zh");
 }
 
-const intro = "常见问题快速答。如果是排错，建议先看：兼容性中心 → 不识别排错。";
+const title = "PC Ambilight FAQ｜屏幕同步 RGB 常见问题解答";
+const intro =
+  "集中回答 PC Ambilight / 屏幕同步灯光的常见问题：安装设置、硬件需求、软件技巧与排错思路。";
+
+const structuredDataExtra = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${head.canonical}#faq`,
+    url: head.canonical,
+    inLanguage: htmlLang,
+    mainEntity: entry.data.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
+];
 ---
 
-<BaseLayout locale={locale} pathname={pathname} title="FAQ" description={intro}>
+<BaseLayout
+  locale={locale}
+  pathname={pathname}
+  title={title}
+  description={intro}
+  structuredDataExtra={structuredDataExtra}
+>
   <header class="space-y-3">
-    <h1 class="text-3xl font-semibold tracking-tight">{entry.data.title}</h1>
+    <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
     <p class="max-w-3xl text-sm text-offset">
       {intro}
     </p>

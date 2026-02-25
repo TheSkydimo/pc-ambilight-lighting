@@ -11,9 +11,9 @@ const { site } = Astro;
 const pageData = buildPageData(locale, site, pathname);
 const { copy } = pageData;
 
-const title = "PC RGB Software Comparisons — OpenRGB vs SignalRGB & More";
+const title = "Ambilight Software Comparison | Features, Latency & Support";
 const intro =
-  "Scenario-based verdicts, what breaks in real setups, and migration costs (accounts, telemetry, drivers, device support).";
+  "Detailed comparison of ambilight and screen sync software for PC setups — features, performance, latency, compatibility, and customization options.";
 
 const entries = await getCollection("comparisons", (e) =>
   e.slug.startsWith(`${locale}/`),
@@ -54,6 +54,61 @@ const items = entries
       {intro}
     </p>
   </header>
+
+  <section class="mt-8 rounded-2xl border border-default bg-offset p-6">
+    <h2 class="text-lg font-semibold tracking-tight">Quick comparison (high-level)</h2>
+    <p class="mt-2 max-w-3xl text-sm text-offset">
+      Use this as a starting point, then open the detailed A vs B pages below for edge cases and migration costs.
+    </p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="min-w-[52rem] w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wide text-offset">
+          <tr>
+            <th class="py-2 pr-4">Software</th>
+            <th class="py-2 pr-4">Screen sync</th>
+            <th class="py-2 pr-4">Device control</th>
+            <th class="py-2 pr-4">Latency</th>
+            <th class="py-2 pr-4">Setup</th>
+            <th class="py-2">Notes</th>
+          </tr>
+        </thead>
+        <tbody class="align-top">
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">OpenRGB</td>
+            <td class="py-3 pr-4">Depends (plugins / integrations)</td>
+            <td class="py-3 pr-4">Strong (many devices)</td>
+            <td class="py-3 pr-4">Varies by pipeline</td>
+            <td class="py-3 pr-4">DIY</td>
+            <td class="py-3 text-offset">Free + local-first, but you may troubleshoot more.</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">SignalRGB</td>
+            <td class="py-3 pr-4">Yes</td>
+            <td class="py-3 pr-4">Good (device list matters)</td>
+            <td class="py-3 pr-4">Usually good</td>
+            <td class="py-3 pr-4">Easy</td>
+            <td class="py-3 text-offset">Polished effects; consider account/online features and CPU load.</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">Hyperion</td>
+            <td class="py-3 pr-4">Yes</td>
+            <td class="py-3 pr-4">Via supported outputs</td>
+            <td class="py-3 pr-4">Good if tuned</td>
+            <td class="py-3 pr-4">Intermediate</td>
+            <td class="py-3 text-offset">Great for DIY / external capture setups; configuration-heavy.</td>
+          </tr>
+          <tr class="border-t border-default/60">
+            <td class="py-3 pr-4 font-semibold">Prismatik</td>
+            <td class="py-3 pr-4">Yes</td>
+            <td class="py-3 pr-4">Primarily LED controllers</td>
+            <td class="py-3 pr-4">Often low</td>
+            <td class="py-3 pr-4">Intermediate</td>
+            <td class="py-3 text-offset">Classic PC ambilight tool; best with compatible controllers.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2">
     {items.map((item) => (
