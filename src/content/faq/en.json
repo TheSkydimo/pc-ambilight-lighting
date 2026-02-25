@@ -7,7 +7,11 @@
     },
     {
       "q": "ARGB vs RGB — what’s the difference?",
-      "a": "ARGB is 5V addressable (each LED can be controlled individually). RGB is typically 12V non-addressable (the whole strip shows one color). Do not mix headers or voltages."
+      "a": "RGB is usually 12V 4-pin (12V+R+G+B), so the whole strip changes color together. ARGB is usually 5V 3-pin (5V+Data+GND), so each LED can be controlled individually. RGB is best for uniform static color, while ARGB supports flowing and per-LED effects."
+    },
+    {
+      "q": "Can I plug RGB and ARGB into each other?",
+      "a": "No. Plugging 5V ARGB into a 12V RGB header can burn LEDs immediately; plugging 12V RGB into 5V ARGB usually will not work and can still damage hardware. Always verify pin count (3-pin vs 4-pin) and header labels before connecting."
     },
     {
       "q": "Why is my device not detected?",

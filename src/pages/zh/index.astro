@@ -1,5 +1,4 @@
 ---
-import { getCollection, getEntry } from "astro:content";
 import type { Locale } from "~/i18n/config";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { buildPageData } from "~/i18n/page-data";
@@ -9,51 +8,6 @@ const locale: Locale = "zh";
 const { site } = Astro;
 const pageData = buildPageData(locale, site, "/");
 const { copy } = pageData;
-
-const featuredGuideSlugs = [
-  "ambilight-bias-lighting",
-  "pc-ambilight-setup-tutorial",
-  "diy-pc-ambilight-projects",
-] as const;
-
-const featuredGuides = (
-  await Promise.all(
-    featuredGuideSlugs.map(async (slug) => {
-      const entry = await getEntry("guides", `${locale}/${slug}`);
-      if (!entry) return null;
-      return {
-        slug,
-        title: entry.data.title,
-        description: entry.data.description,
-        href: localizePathname(locale, `/guides/${slug}/`),
-      };
-    }),
-  )
-).filter((value): value is NonNullable<typeof value> => Boolean(value));
-
-const faqEntry = await getEntry("faq", locale);
-if (!faqEntry) {
-  throw new Error(`Missing FAQ data for ${locale}`);
-}
-const faqHighlights = faqEntry.data.items.slice(0, 5);
-
-const comparisonEntries = await getCollection("comparisons", (e) =>
-  e.slug.startsWith(`${locale}/`),
-);
-const latestComparisons = comparisonEntries
-  .map((e) => {
-    const slug = e.slug.split("/").slice(1).join("/");
-    return {
-      slug,
-      title: e.data.title,
-      description: e.data.description,
-      href: localizePathname(locale, `/compare/${slug}/`),
-      updatedAt: e.data.updatedAt,
-    };
-  })
-  .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0))
-  .slice(0, 2);
-
 ---
 
 <BaseLayout locale={locale} pathname="/">
@@ -69,144 +23,79 @@ const latestComparisons = comparisonEntries
         {copy.home.valueProp}
       </p>
       <div class="flex flex-wrap gap-3">
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-ambilight-software/")}>
-          {copy.nav.bestPicks}
+        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
+          先看：低折腾推荐
         </a>
         <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/guides/")}>
-          {copy.nav.guides}
-        </a>
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/compatibility/")}>
-          {copy.nav.compatibility}
+          先装起来（5 分钟）
         </a>
       </div>
     </div>
     <aside class="rounded-2xl border border-default bg-offset p-6">
-      <div class="text-sm font-semibold">{copy.home.trustTitle}</div>
+      <div class="text-sm font-semibold">第一次看，按这个顺序走</div>
       <ul class="mt-4 space-y-2 text-sm text-offset">
-        {copy.home.trustBullets.map((item) => (
-          <li class="flex gap-2">
-            <span aria-hidden="true" class="text-secondary">•</span>
-            <span>{item}</span>
-          </li>
-        ))}
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>先看推荐：选一个“先能稳定跑起来”的方案</span>
+        </li>
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>再按教程完成安装，再做低延迟优化</span>
+        </li>
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>遇到不识别/冲突，再去兼容性中心排错</span>
+        </li>
       </ul>
     </aside>
   </section>
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">{copy.home.topPicksTitle}</h2>
-      <p class="max-w-3xl text-sm text-offset">{copy.home.topPicksLead}</p>
-    </header>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
-        <div class="text-sm font-semibold">{copy.nav.bestPicks}</div>
-        <div class="mt-2 text-sm text-offset">综合推荐</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
-        <div class="text-sm font-semibold">屏幕同步</div>
-        <div class="mt-2 text-sm text-offset">低折腾优先</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-free-ambilight-software/")}>
-        <div class="text-sm font-semibold">免费 / 开源</div>
-        <div class="mt-2 text-sm text-offset">免费方案推荐</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-for-mixed-brands/")}>
-        <div class="text-sm font-semibold">多品牌混搭</div>
-        <div class="mt-2 text-sm text-offset">混搭设备优先</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">快速教程（建议从这里开始）</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">从这里开始（3 步）</h2>
       <p class="max-w-3xl text-sm text-offset">
-        先理解概念，再按步骤搭建，最后再考虑 DIY 扩展。这三页覆盖新手 80% 的搜索问题。
+        首页只做起步决策：先选，再装，最后排错；详细内容在对应内页展开。
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {featuredGuides.map((item) => (
-        <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={item.href}>
-          <div class="text-sm font-semibold">{item.title}</div>
-          <div class="mt-2 text-sm text-offset">{item.description}</div>
-          <div class="mt-4 text-xs text-offset">{copy.common.readMore} →</div>
-        </a>
-      ))}
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
+        <div class="text-sm font-semibold">1) 先选方案</div>
+        <div class="mt-2 text-sm text-offset">直接看推荐榜单，先找到最稳妥的起步选项。</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
+        <div class="text-sm font-semibold">2) 快速安装</div>
+        <div class="mt-2 text-sm text-offset">按教程一步步接线和配置，先实现可用再细调。</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
+        <div class="text-sm font-semibold">3) 有问题就排错</div>
+        <div class="mt-2 text-sm text-offset">设备不识别、灯效异常，按排错树快速定位。</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
     </div>
   </section>
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">最新对比（2026）</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">常用入口</h2>
       <p class="max-w-3xl text-sm text-offset">
-        功能表很好做，难的是“真实场景会坏在哪”。先看这两篇，少踩坑。
+        你不需要在首页看完全部内容，按目标进入对应页面即可。
       </p>
-    </header>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      {latestComparisons.map((item) => (
-        <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={item.href}>
-          <div class="text-sm font-semibold">{item.title}</div>
-          <div class="mt-2 text-sm text-offset">{item.description}</div>
-          <div class="mt-4 text-xs text-offset">{copy.common.readMore} →</div>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">{copy.home.sectionsTitle}</h2>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/reviews/")}>
         <div class="text-sm font-semibold">{copy.nav.reviews}</div>
-        <div class="mt-2 text-sm text-offset">适用人群/边界/坑点讲清楚。</div>
+        <div class="mt-2 text-sm text-offset">想深入理解再看评测，不影响你先落地。</div>
       </a>
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/comparisons/")}>
         <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
-        <div class="mt-2 text-sm text-offset">A vs B，按场景给结论。</div>
+        <div class="mt-2 text-sm text-offset">已有候选时再看 A vs B，决策会更快。</div>
       </a>
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/")}>
         <div class="text-sm font-semibold">{copy.nav.guides}</div>
-        <div class="mt-2 text-sm text-offset">安装、低延迟、冲突与排错。</div>
+        <div class="mt-2 text-sm text-offset">需要动手就看教程，减少反复试错。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compatibility/")}>
-        <div class="text-sm font-semibold">{copy.nav.compatibility}</div>
-        <div class="mt-2 text-sm text-offset">兼容矩阵 + “不识别”排错树。</div>
-      </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
-        <div class="text-sm font-semibold">{copy.nav.faq}</div>
-        <div class="mt-2 text-sm text-offset">常见问题快速答。</div>
-      </a>
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">新手 FAQ（高频问题）</h2>
-      <p class="max-w-3xl text-sm text-offset">
-        先把这些问题过一遍，通常能少浪费一小时在驱动冲突上。
-      </p>
-    </header>
-    <div class="mt-6 rounded-2xl border border-default bg-offset p-6">
-      <ul class="space-y-3 text-sm">
-        {faqHighlights.map((item) => (
-          <li>
-            <div class="font-semibold">{item.q}</div>
-            <div class="mt-1 text-offset">{item.a}</div>
-          </li>
-        ))}
-      </ul>
-      <div class="mt-5">
-        <a class="text-sm text-secondary hover:underline" href={localizePathname(locale, "/faq/")}>
-          查看完整 FAQ →
-        </a>
-      </div>
     </div>
   </section>
 </BaseLayout>

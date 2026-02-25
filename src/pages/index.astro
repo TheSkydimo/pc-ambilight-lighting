@@ -1,5 +1,4 @@
 ---
-import { getCollection, getEntry } from "astro:content";
 import { DEFAULT_LOCALE } from "~/i18n/config";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { localizePathname } from "~/i18n/config";
@@ -9,50 +8,6 @@ const locale = DEFAULT_LOCALE;
 const { site } = Astro;
 const pageData = buildPageData(locale, site, "/");
 const { copy } = pageData;
-
-const featuredGuideSlugs = [
-  "ambilight-bias-lighting",
-  "pc-ambilight-setup-tutorial",
-  "diy-pc-ambilight-projects",
-] as const;
-
-const featuredGuides = (
-  await Promise.all(
-    featuredGuideSlugs.map(async (slug) => {
-      const entry = await getEntry("guides", `${locale}/${slug}`);
-      if (!entry) return null;
-      return {
-        slug,
-        title: entry.data.title,
-        description: entry.data.description,
-        href: localizePathname(locale, `/guides/${slug}/`),
-      };
-    }),
-  )
-).filter((value): value is NonNullable<typeof value> => Boolean(value));
-
-const faqEntry = await getEntry("faq", locale);
-if (!faqEntry) {
-  throw new Error(`Missing FAQ data for ${locale}`);
-}
-const faqHighlights = faqEntry.data.items.slice(0, 5);
-
-const comparisonEntries = await getCollection("comparisons", (e) =>
-  e.slug.startsWith(`${locale}/`),
-);
-const latestComparisons = comparisonEntries
-  .map((e) => {
-    const slug = e.slug.split("/").slice(1).join("/");
-    return {
-      slug,
-      title: e.data.title,
-      description: e.data.description,
-      href: localizePathname(locale, `/compare/${slug}/`),
-      updatedAt: e.data.updatedAt,
-    };
-  })
-  .sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0))
-  .slice(0, 2);
 ---
 
 <BaseLayout locale={locale} pathname="/">
@@ -68,144 +23,79 @@ const latestComparisons = comparisonEntries
         {copy.home.valueProp}
       </p>
       <div class="flex flex-wrap gap-3">
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-ambilight-software/")}>
-          {copy.nav.bestPicks}
+        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
+          Start: low-friction picks
         </a>
         <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/guides/")}>
-          {copy.nav.guides}
-        </a>
-        <a class="btn rounded border border-default px-4 py-2 text-sm" href={localizePathname(locale, "/compatibility/")}>
-          {copy.nav.compatibility}
+          Setup in 5 minutes
         </a>
       </div>
     </div>
     <aside class="rounded-2xl border border-default bg-offset p-6">
-      <div class="text-sm font-semibold">{copy.home.trustTitle}</div>
+      <div class="text-sm font-semibold">If you are new, use this order</div>
       <ul class="mt-4 space-y-2 text-sm text-offset">
-        {copy.home.trustBullets.map((item) => (
-          <li class="flex gap-2">
-            <span aria-hidden="true" class="text-secondary">•</span>
-            <span>{item}</span>
-          </li>
-        ))}
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>Pick a stable setup first from the recommendations</span>
+        </li>
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>Follow the setup guide, then tune latency</span>
+        </li>
+        <li class="flex gap-2">
+          <span aria-hidden="true" class="text-secondary">•</span>
+          <span>If detection fails, use compatibility troubleshooting</span>
+        </li>
       </ul>
     </aside>
   </section>
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">{copy.home.topPicksTitle}</h2>
-      <p class="max-w-3xl text-sm text-offset">{copy.home.topPicksLead}</p>
-    </header>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
-        <div class="text-sm font-semibold">{copy.nav.bestPicks}</div>
-        <div class="mt-2 text-sm text-offset">Best overall</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
-        <div class="text-sm font-semibold">Screen sync</div>
-        <div class="mt-2 text-sm text-offset">Best low-drama setup</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-free-ambilight-software/")}>
-        <div class="text-sm font-semibold">Free & open</div>
-        <div class="mt-2 text-sm text-offset">Best free option</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-for-mixed-brands/")}>
-        <div class="text-sm font-semibold">Mixed brands</div>
-        <div class="mt-2 text-sm text-offset">Best for mixed RGB devices</div>
-        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
-      </a>
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">Quick tutorials (start here)</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">Start here (3 steps)</h2>
       <p class="max-w-3xl text-sm text-offset">
-        Basics first, then setup, then DIY. These three pages cover 80% of what beginners search for.
+        The homepage only gives your starting path. Deep comparisons and long FAQs stay on inner pages.
       </p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {featuredGuides.map((item) => (
-        <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={item.href}>
-          <div class="text-sm font-semibold">{item.title}</div>
-          <div class="mt-2 text-sm text-offset">{item.description}</div>
-          <div class="mt-4 text-xs text-offset">{copy.common.readMore} →</div>
-        </a>
-      ))}
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
+        <div class="text-sm font-semibold">1) Choose a setup</div>
+        <div class="mt-2 text-sm text-offset">Use curated picks to decide quickly with fewer trade-offs.</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/guides/pc-ambilight-setup-tutorial/")}>
+        <div class="text-sm font-semibold">2) Install quickly</div>
+        <div class="mt-2 text-sm text-offset">Follow the practical setup flow before fine-tuning.</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/compatibility/not-detected/")}>
+        <div class="text-sm font-semibold">3) Troubleshoot fast</div>
+        <div class="mt-2 text-sm text-offset">Use the decision tree when devices are not detected.</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
+      </a>
     </div>
   </section>
 
   <section class="mt-16">
     <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">Latest comparisons (2026)</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">Common entry points</h2>
       <p class="max-w-3xl text-sm text-offset">
-        Feature differences are easy. What breaks in real setups is the hard part—use these as a shortcut.
+        You do not need to read everything on the homepage. Jump to the page that matches your current goal.
       </p>
-    </header>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      {latestComparisons.map((item) => (
-        <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={item.href}>
-          <div class="text-sm font-semibold">{item.title}</div>
-          <div class="mt-2 text-sm text-offset">{item.description}</div>
-          <div class="mt-4 text-xs text-offset">{copy.common.readMore} →</div>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">{copy.home.sectionsTitle}</h2>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/reviews/")}>
         <div class="text-sm font-semibold">{copy.nav.reviews}</div>
-        <div class="mt-2 text-sm text-offset">Deep reviews with clear fit & limits.</div>
+        <div class="mt-2 text-sm text-offset">Read in depth when you already have shortlist candidates.</div>
       </a>
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/comparisons/")}>
         <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
-        <div class="mt-2 text-sm text-offset">A vs B, scenario-based verdicts.</div>
+        <div class="mt-2 text-sm text-offset">Use A-vs-B pages to validate a near-final decision.</div>
       </a>
       <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/")}>
         <div class="text-sm font-semibold">{copy.nav.guides}</div>
-        <div class="mt-2 text-sm text-offset">Install, optimize latency, troubleshoot.</div>
+        <div class="mt-2 text-sm text-offset">Practical setup and tuning workflows.</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compatibility/")}>
-        <div class="text-sm font-semibold">{copy.nav.compatibility}</div>
-        <div class="mt-2 text-sm text-offset">Matrix + “not detected” decision tree.</div>
-      </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
-        <div class="text-sm font-semibold">{copy.nav.faq}</div>
-        <div class="mt-2 text-sm text-offset">Fast answers to common questions.</div>
-      </a>
-    </div>
-  </section>
-
-  <section class="mt-16">
-    <header class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">Beginner FAQ highlights</h2>
-      <p class="max-w-3xl text-sm text-offset">
-        The questions that come up first—before you waste an hour on driver conflicts.
-      </p>
-    </header>
-    <div class="mt-6 rounded-2xl border border-default bg-offset p-6">
-      <ul class="space-y-3 text-sm">
-        {faqHighlights.map((item) => (
-          <li>
-            <div class="font-semibold">{item.q}</div>
-            <div class="mt-1 text-offset">{item.a}</div>
-          </li>
-        ))}
-      </ul>
-      <div class="mt-5">
-        <a class="text-sm text-secondary hover:underline" href={localizePathname(locale, "/faq/")}>
-          View full FAQ →
-        </a>
-      </div>
     </div>
   </section>
 </BaseLayout>

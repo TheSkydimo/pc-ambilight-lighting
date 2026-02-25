@@ -9,6 +9,7 @@ export interface TranslationContent {
     ogDescription: string;
   };
   nav: {
+    home: string;
     bestPicks: string;
     reviews: string;
     comparisons: string;
@@ -74,6 +75,7 @@ const translations: Record<Locale, TranslationContent> = {
         "Top tools, setup tutorials, comparisons, and troubleshooting for PC Ambilight / screen-sync RGB lighting.",
     },
     nav: {
+      home: "Home",
       bestPicks: "Best Picks",
       reviews: "Reviews",
       comparisons: "Comparisons",
@@ -143,6 +145,7 @@ const translations: Record<Locale, TranslationContent> = {
         "屏幕同步氛围灯软件与方案选型指南：透明方法论 + 兼容性说明 + 排错路径。",
     },
     nav: {
+      home: "首页",
       bestPicks: "推荐榜单",
       reviews: "深度评测",
       comparisons: "对比选型",
