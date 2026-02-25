@@ -3,7 +3,8 @@
 }
 
 .content a {
-  @apply underline decoration-white/30 underline-offset-4 hover:text-secondary hover:decoration-secondary;
+  @apply underline underline-offset-4 hover:text-secondary hover:decoration-secondary;
+  text-decoration-color: var(--color-border);
 }
 
 .content p {
@@ -27,11 +28,11 @@
 }
 
 .content code {
-  @apply rounded bg-black/30 px-1 py-0.5 text-[0.95em] text-white/90;
+  @apply rounded bg-offset px-1 py-0.5 text-[0.95em] text-default;
 }
 
 .content pre {
-  @apply my-6 overflow-auto rounded-2xl border border-default bg-black/40 p-5 text-sm;
+  @apply my-6 overflow-auto rounded-2xl border border-default bg-offset p-5 text-sm text-default;
 }
 
 .content blockquote {

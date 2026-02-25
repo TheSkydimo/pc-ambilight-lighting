@@ -14,7 +14,7 @@ const { copy } = pageData;
 <BaseLayout locale={locale} pathname="/">
   <section class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
     <div class="space-y-6">
-      <p class="text-sm uppercase tracking-wide text-white/60">
+      <p class="text-sm uppercase tracking-wide text-offset">
         PC · Ambilight · 屏幕同步 RGB
       </p>
       <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -54,25 +54,25 @@ const { copy } = pageData;
       <p class="max-w-3xl text-sm text-offset">{copy.home.topPicksLead}</p>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-white/30" href={localizePathname(locale, "/best-ambilight-software/")}>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-ambilight-software/")}>
         <div class="text-sm font-semibold">{copy.nav.bestPicks}</div>
         <div class="mt-2 text-sm text-offset">综合推荐</div>
-        <div class="mt-4 text-xs text-white/60 group-hover:text-white/80">{copy.common.readMore} →</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-white/30" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-screen-sync-rgb-software/")}>
         <div class="text-sm font-semibold">屏幕同步</div>
         <div class="mt-2 text-sm text-offset">低折腾优先</div>
-        <div class="mt-4 text-xs text-white/60 group-hover:text-white/80">{copy.common.readMore} →</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-white/30" href={localizePathname(locale, "/best-free-ambilight-software/")}>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-free-ambilight-software/")}>
         <div class="text-sm font-semibold">免费 / 开源</div>
         <div class="mt-2 text-sm text-offset">免费方案推荐</div>
-        <div class="mt-4 text-xs text-white/60 group-hover:text-white/80">{copy.common.readMore} →</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
-      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-white/30" href={localizePathname(locale, "/best-for-mixed-brands/")}>
+      <a class="group rounded-2xl border border-default bg-offset p-5 transition hover:border-secondary" href={localizePathname(locale, "/best-for-mixed-brands/")}>
         <div class="text-sm font-semibold">多品牌混搭</div>
         <div class="mt-2 text-sm text-offset">混搭设备优先</div>
-        <div class="mt-4 text-xs text-white/60 group-hover:text-white/80">{copy.common.readMore} →</div>
+        <div class="mt-4 text-xs text-offset transition-colors group-hover:text-secondary">{copy.common.readMore} →</div>
       </a>
     </div>
   </section>
@@ -82,23 +82,23 @@ const { copy } = pageData;
       <h2 class="text-2xl font-semibold tracking-tight">{copy.home.sectionsTitle}</h2>
     </header>
     <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-white/30" href={localizePathname(locale, "/reviews/")}>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/reviews/")}>
         <div class="text-sm font-semibold">{copy.nav.reviews}</div>
         <div class="mt-2 text-sm text-offset">适用人群/边界/坑点讲清楚。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-white/30" href={localizePathname(locale, "/comparisons/")}>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/comparisons/")}>
         <div class="text-sm font-semibold">{copy.nav.comparisons}</div>
         <div class="mt-2 text-sm text-offset">A vs B，按场景给结论。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-white/30" href={localizePathname(locale, "/guides/")}>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/guides/")}>
         <div class="text-sm font-semibold">{copy.nav.guides}</div>
         <div class="mt-2 text-sm text-offset">安装、低延迟、冲突与排错。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-white/30" href={localizePathname(locale, "/compatibility/")}>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/compatibility/")}>
         <div class="text-sm font-semibold">{copy.nav.compatibility}</div>
         <div class="mt-2 text-sm text-offset">兼容矩阵 + “不识别”排错树。</div>
       </a>
-      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-white/30" href={localizePathname(locale, "/faq/")}>
+      <a class="rounded-2xl border border-default bg-offset p-5 hover:border-secondary" href={localizePathname(locale, "/faq/")}>
         <div class="text-sm font-semibold">{copy.nav.faq}</div>
         <div class="mt-2 text-sm text-offset">常见问题快速答。</div>
       </a>
