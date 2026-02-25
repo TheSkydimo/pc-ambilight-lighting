@@ -20,11 +20,11 @@ const activeOption =
   role="listbox"
 >
   <summary class="summary-button" aria-haspopup="listbox">
-    <span class="text-xs uppercase tracking-wide text-white/70">{label}</span>
+    <span class="label-text">{label}</span>
     <span class="current-option" lang={activeOption.code}>
       {activeOption.fullLabel}
     </span>
-    <Icon name="mdi:chevron-down" class="size-3 text-white/70" />
+    <Icon name="mdi:chevron-down" class="chevron" />
   </summary>
   <ul class="options-panel">
     {options.map((option) => {
@@ -35,14 +35,14 @@ const activeOption =
             class:list={[
               "block rounded px-3 py-2 text-sm transition-colors",
               isActive
-                ? "bg-primary text-black"
-                : "text-white/80 hover:bg-white/10 hover:text-white",
+                ? "bg-primary text-white"
+                : "text-default hover:bg-offset",
             ]}
             lang={option.code}
             aria-current={isActive ? "true" : undefined}
             href={option.href}
             title={option.fullLabel}
-            onClick={`try{localStorage.setItem('preferredLocale','${option.code}')}catch{}; this.closest('details')?.removeAttribute('open')`}
+            onclick={`try{localStorage.setItem('preferredLocale','${option.code}')}catch{}; this.closest('details')?.removeAttribute('open')`}
           >
             {option.fullLabel}
           </a>
@@ -54,7 +54,7 @@ const activeOption =
 
 <style>
   .language-switcher {
-    @apply relative text-sm text-white;
+    @apply relative text-sm text-default;
   }
   .language-switcher summary {
     list-style: none;
@@ -63,13 +63,23 @@ const activeOption =
     display: none;
   }
   .summary-button {
-    @apply flex cursor-pointer items-center gap-2 rounded border border-white/20 px-3 py-1 text-xs uppercase tracking-wide text-white/80 transition-colors hover:border-white/60;
+    @apply flex cursor-pointer items-center gap-2 rounded border border-default px-3 py-1 transition-colors;
+    @apply hover:border-secondary;
+    background-color: color-mix(in srgb, var(--color-background) 70%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .label-text {
+    @apply text-xs uppercase tracking-wide text-offset;
+  }
+  .chevron {
+    @apply size-3 text-offset;
   }
   .current-option {
-    @apply font-semibold text-white;
+    @apply font-semibold text-default;
   }
   .options-panel {
-    @apply absolute right-0 mt-2 w-40 space-y-1 rounded border border-white/10 bg-black/90 p-2 backdrop-blur;
+    @apply absolute right-0 mt-2 w-44 space-y-1 rounded border border-default bg-default p-2;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
     z-index: 40;
   }
   .language-switcher:not([open]) .options-panel {

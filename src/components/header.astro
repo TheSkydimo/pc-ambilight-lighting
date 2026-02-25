@@ -36,7 +36,7 @@ const {
 ---
 
 <header id="page-header" class="page-header">
-  <a class="flex items-center gap-3 hover:!text-white" href={homeHref}>
+  <a class="flex items-center gap-3" href={homeHref}>
     <h1 class="sr-only">{siteName}</h1>
     <img
       src="/svg/og-image.png"
@@ -182,14 +182,18 @@ closeNavButton.addEventListener("click", closeMenu);
 
 <style>
   .page-header {
-    @apply fixed inset-x-0 top-0 z-20 flex w-full items-center justify-between border-b border-transparent bg-transparent px-8 py-4 text-white transition-colors;
-  }
-  .header--scrolled {
-    @apply border-default backdrop-blur;
-    background-color: var(--color-background);
+    @apply fixed inset-x-0 top-0 z-20 flex w-full items-center justify-between border-b border-default px-8 py-4 text-default transition-colors;
     background-color: color-mix(
       in srgb,
-      var(--color-background) 90%,
+      var(--color-background) 80%,
+      transparent
+    );
+    backdrop-filter: blur(10px);
+  }
+  .header--scrolled {
+    background-color: color-mix(
+      in srgb,
+      var(--color-background) 92%,
       transparent
     );
   }
